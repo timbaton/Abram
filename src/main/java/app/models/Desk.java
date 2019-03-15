@@ -19,12 +19,4 @@ public class Desk {
 
     // в бд нет такого, у каждого пользователя есть ссылка на стол
     private List<User> users;
-
-    public Desk(Long id, Date dataOfCreation, String name, User creator) {
-        this.id = id;
-        this.dataOfCreation = dataOfCreation;
-        this.name = name;
-        this.creator = creator;
-        this.users = new ArrayList<User>();
-    }
 }

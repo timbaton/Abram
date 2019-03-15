@@ -16,13 +16,4 @@ public class User {
     private String name;
     private List<Desk> ownDesks;
     private List<Task> tasks;
-
-    public User(Long id, String login, String password, String name) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.ownDesks = new ArrayList<Desk>();
-        this.tasks = new ArrayList<Task>();
-    }
 }

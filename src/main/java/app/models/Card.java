@@ -17,11 +17,4 @@ public class Card {
 
     // в бд нет такого, у каждого таска есть ссылка на карточку
     private List<Task> tasks;
-
-    public Card(Long id, String name, Date dateOfCreation) {
-        this.id = id;
-        this.name = name;
-        this.dateOfCreation = dateOfCreation;
-        this.tasks = new ArrayList<Task>();
-    }
 }
