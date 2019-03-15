@@ -1,16 +1,13 @@
-package models;
+package app.models;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Builder
 public class User {
     private Long id;

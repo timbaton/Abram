@@ -1,17 +1,14 @@
-package models;
+package app.models;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Card {
     private Long id;

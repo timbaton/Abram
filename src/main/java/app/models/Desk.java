@@ -1,4 +1,4 @@
-package models;
+package app.models;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Desk {
     private Long id;

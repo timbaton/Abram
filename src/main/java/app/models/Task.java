@@ -1,4 +1,4 @@
-package models;
+package app.models;
 
 import lombok.*;
 
@@ -6,8 +6,8 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Task {
     private Long id;
     private String description;
