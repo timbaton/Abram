@@ -1,31 +1,32 @@
 create table "user" (
-  id serial primary key,
-  name varchar(35),
-  login varchar(35),
+  id       serial primary key,
+  name     varchar(35),
+  login    varchar(35),
   password varchar(50)
 );
 
 create table desk (
-  id serial primary key,
-  name varchar(35),
+  id               serial primary key,
+  name             varchar(35),
   data_of_creation timestamp
 );
 
-create table user_to_table(
-  id serial not null,
-  user_id integer references "user"(id) unique ,
-  desk_id integer references desk(id) unique
+create table user_to_table (
+  id      serial not null,
+  user_id integer references "user" (id) unique,
+  desk_id integer references desk (id) unique
 );
 
-ALTER TABLE desk ADD COLUMN creator integer;
+ALTER TABLE desk
+  ADD COLUMN creator integer;
 
 ALTER TABLE desk
   ADD CONSTRAINT own
 FOREIGN KEY (creator)
 REFERENCES user_to_desk (user_id);
 
-ALTER TABLE "user" ADD COLUMN own_tables integer;
-
+ALTER TABLE "user"
+  ADD COLUMN own_tables integer;
 
 ALTER TABLE "user"
   ADD CONSTRAINT own_
@@ -33,10 +34,35 @@ FOREIGN KEY (own_tables)
 REFERENCES user_to_desk (desk_id);
 
 create table card (
-  id serial primary key,
+  id               serial primary key,
   data_of_creation timestamp,
-  desk_id integer references desk(id)
-)
+  desk_id          integer references desk (id)
+);
 
+create table task_to_user (
+  id      serial primary key,
+  task_id integer references task (id) unique ,
+  user_id  integer references "user" (id) unique
+);
 
+create table task (
+  id          serial primary key,
+  description varchar,
+  card_id     integer references card (id)
+);
 
+ALTER TABLE task
+  ADD COLUMN users integer;
+
+ALTER TABLE task
+  ADD CONSTRAINT users
+FOREIGN KEY (users)
+REFERENCES task_to_user (user_id);
+
+ALTER TABLE "user"
+  ADD COLUMN tasks integer;
+
+ALTER TABLE "user"
+  ADD CONSTRAINT tasks
+FOREIGN KEY (tasks)
+REFERENCES task_to_user (task_id);
