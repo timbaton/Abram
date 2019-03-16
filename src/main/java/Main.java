@@ -1,5 +1,6 @@
 import dao.UsersDao;
 import models.User;
+import services.UserService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,10 +8,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        UsersDao userDao = new UsersDao();
-
-//        List<User> allUsers = userDao.findAll();
-        User allUsers = userDao.find("tim").get(0);
-        System.out.println(allUsers);
+        UserService userService = new UserService();
+        userService.entryUser();
     }
 }
