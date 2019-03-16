@@ -1,7 +1,6 @@
 package dao;
 
 import models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,6 +20,12 @@ public class UsersDao {
 
     private final String SQL_SELECT_ALL = "SELECT * FROM \"user\"";
     private final String SQL_SELECT_USER_BY_NAME = "SELECT * FROM \"user\" WHERE name= ?";
+    private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name from user_to_desk\n" +
+            "inner join desk on user_to_desk.user_id = desk.creator where user_to_desk.user_id = ?\n" +
+            "group by desk.name, desk.id";
+    private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name from task_to_user\n" +
+            "       inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = 1\n" +
+            "group by task.name, task.id";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -38,14 +43,14 @@ public class UsersDao {
 
     public List<User> findAll() {
         // подключение к бд через бины. объявленные в spring-config.xml
-        return jdbcTemplate.query(SQL_SELECT_ALL, rowMapper);
+        return jdbcTemplate.query(SQL_SELECT_ALL, userRowMapper);
     }
 
     public List<User> find(String name) {
-        return jdbcTemplate.query(SQL_SELECT_USER_BY_NAME, rowMapper, name);
+        return jdbcTemplate.query(SQL_SELECT_USER_BY_NAME, userRowMapper, name);
     }
 
-    private RowMapper<User> rowMapper = (resultSet, i) -> User.builder()
+    private RowMapper<User> userRowMapper = (resultSet, i) -> User.builder()
             .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))
             .login(resultSet.getString("login"))
