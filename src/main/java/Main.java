@@ -1,9 +1,8 @@
-import app.models.Card;
-import app.models.User;
+import dao.UsersDao;
 
 public class Main {
 
     public static void main(String[] args) {
-
+        UsersDao userDao = new UsersDao();
     }
 }

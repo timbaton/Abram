@@ -1,6 +1,6 @@
-package app.dao;
+package dao;
 
-import app.models.User;
+import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UsersDao implements SimpleDao {
+public class UsersDao {
     private Connection connection = null;
     private List<User> users;
 
