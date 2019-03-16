@@ -22,13 +22,13 @@ public class UsersDao {
     private final String SQL_SELECT_ALL = "SELECT * FROM \"user\"";
     private final String SQL_SELECT_USER_BY_NAME = "SELECT * FROM \"user\" WHERE name= ?";
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public UsersDao() {
         try {
             ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
             DriverManagerDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
+            jdbcTemplate = context.getBean(JdbcTemplate.class);
             connection = dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,8 +41,8 @@ public class UsersDao {
         return jdbcTemplate.query(SQL_SELECT_ALL, rowMapper);
     }
 
-    public User find(String name) {
-        return (User) jdbcTemplate.query(SQL_SELECT_USER_BY_NAME, rowMapper, name);
+    public List<User> find(String name) {
+        return jdbcTemplate.query(SQL_SELECT_USER_BY_NAME, rowMapper, name);
     }
 
     private RowMapper<User> rowMapper = (resultSet, i) -> User.builder()
