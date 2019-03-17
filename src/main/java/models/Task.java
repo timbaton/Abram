@@ -11,6 +11,7 @@ import java.util.List;
 public class Task {
     private Long id;
     private String description;
-    private List<User> users;
-    private Card card;
+    private Long user;
+    private Long card;
+    private String name;
 }

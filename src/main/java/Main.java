@@ -1,4 +1,3 @@
-import dao.UsersDao;
 import services.UserService;
 
 public class Main {
@@ -8,5 +7,8 @@ public class Main {
         userService.entryUser();
 //        UsersDao dao = new UsersDao();
 //        System.out.println(dao.findByLogin("ainaard").get(0));
+
+        userService.showUserInfo("ainaard");
+
     }
 }
