@@ -17,7 +17,7 @@ import java.util.Scanner;
 @Component
 public class UserService {
 
-    String command = "";
+    private String command = "";
     private Scanner sc;
     private UsersDao usersDao = new UsersDao();
     private TasksDao tasksDao = new TasksDao();
@@ -53,28 +53,36 @@ public class UserService {
             userDesks = desksDao.findAllUserDesks(login);
             System.out.println("Your desks: ");
 
-            int deskNumber = 0;
-            for (Desk desk : userDesks) {
-                deskNumber++;
-                System.out.println(deskNumber + "." + desk.getName());
-            }
-            showDeskCards(userDesks);
+            if(!userDesks.isEmpty()) {
+                int deskNumber = 0;
+                for (Desk desk : userDesks) {
+                    deskNumber++;
+                    System.out.println(deskNumber + "." + desk.getName());
+                }
+                showDeskCards(userDesks);
+            } else
+                System.out.println("User doesn't have any desks!");
         }
     }
 
-    private void showDeskCards(List<Desk> userdesks) {
+    private void showDeskCards(List<Desk> userDesks) {
+
 //  посмотреть карточки из данного стола
         command = sc.nextLine();
-        for (Desk desk : userdesks) {
+        List<Card> userCards;
+        for (Desk desk : userDesks) {
             if (command.equals(desk.getName())) {
-                List<Card> userCards = cardsDao.findAllCardsFromDesk(desk.getName());
+                userCards = cardsDao.findAllCardsFromDesk(desk.getName());
                 System.out.println(desk.getName() + " " + "has cards: ");
 
-                int cardNumber = 0;
-                for (Card card : userCards) {
-                    cardNumber++;
-                    System.out.println(cardNumber + "." + card.getName());
-                }
+                if (!userCards.isEmpty()) {
+                    int cardNumber = 0;
+                    for (Card card : userCards) {
+                        cardNumber++;
+                        System.out.println(cardNumber + "." + card.getName());
+                    }
+                } else
+                    System.out.println("No cards in this desk!");
             }
         }
     }
