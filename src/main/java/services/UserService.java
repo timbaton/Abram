@@ -1,26 +1,29 @@
 package services;
 
+import dao.CardsDao;
 import dao.DesksDao;
 import dao.TasksDao;
 import dao.UsersDao;
+import models.Card;
 import models.Desk;
 import models.Task;
 import models.User;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 @Component
 public class UserService {
 
+    String command = "";
     private Scanner sc;
     private UsersDao usersDao = new UsersDao();
     private TasksDao tasksDao = new TasksDao();
     private DesksDao desksDao = new DesksDao();
+    private CardsDao cardsDao = new CardsDao();
 
-    //  вход для юзера
     public void entryUser() {
         sc = new Scanner(System.in);
 
@@ -38,16 +41,16 @@ public class UserService {
         } else {
             System.out.println("Oops! Invalid data!");
         }
-
-        showUserInfo(login);
+        showUserDesks(login);
     }
 
-    public void showUserInfo(String login) {
+    private void showUserDesks(String login) {
 
 //  посмотреть все столы юзера
-        String command = sc.nextLine();
+        command = sc.nextLine();
+        List<Desk> userDesks;
         if (command.equals("my desks")) {
-            List<Desk> userDesks = desksDao.findAllUserDesks(login);
+            userDesks = desksDao.findAllUserDesks(login);
             System.out.println("Your desks: ");
 
             int deskNumber = 0;
@@ -55,16 +58,24 @@ public class UserService {
                 deskNumber++;
                 System.out.println(deskNumber + "." + desk.getName());
             }
-        } else if (command.equals("my tasks")) {
-            List<Task> userTasks = tasksDao.findAllUserTasks(login);
-            System.out.println("Your tasks: ");
+            showDeskCards(userDesks);
+        }
+    }
 
-            int taskNumber = 0;
-            for (Task task : userTasks) {
-                taskNumber++;
-                System.out.println(taskNumber + "." + task.getName());
+    private void showDeskCards(List<Desk> userdesks) {
+//  посмотреть карточки из данного стола
+        command = sc.nextLine();
+        for (Desk desk : userdesks) {
+            if (command.equals(desk.getName())) {
+                List<Card> userCards = cardsDao.findAllCardsFromDesk(desk.getName());
+                System.out.println(desk.getName() + " " + "has cards: ");
+
+                int cardNumber = 0;
+                for (Card card : userCards) {
+                    cardNumber++;
+                    System.out.println(cardNumber + "." + card.getName());
+                }
             }
         }
-
     }
 }

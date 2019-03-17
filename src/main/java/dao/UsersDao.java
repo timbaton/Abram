@@ -18,7 +18,6 @@ import java.util.List;
 @Component
 public class UsersDao implements SimpleDao {
     private Connection connection = null;
-    private List<User> users;
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_ALL = "SELECT * FROM \"user\"";
@@ -34,7 +33,6 @@ public class UsersDao implements SimpleDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        this.users = new ArrayList<>();
     }
 
     @Override

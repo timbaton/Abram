@@ -1,5 +1,7 @@
 package dao;
 
+import models.Card;
+import models.Desk;
 import models.Task;
 import models.User;
 import org.springframework.context.ApplicationContext;
@@ -12,15 +14,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TasksDao implements SimpleDao{
+public class CardsDao<T> implements SimpleDao {
 
     private JdbcTemplate jdbcTemplate;
     private Connection connection = null;
 
-    private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name, task.description\n" +
-            "from task_to_user inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?";
+    private final String SQL_SELECT_CARDS_FROM_DESK = "select card.id, card.name, card.date_of_creation\n" +
+            "from card inner join desk on card.desk_id = desk.id where desk.id = ?";
 
-    public TasksDao() {
+    public CardsDao() {
         try {
             ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
             DriverManagerDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
@@ -31,16 +33,16 @@ public class TasksDao implements SimpleDao{
         }
     }
 
-    public List<Task> findAllUserTasks(String login) {
-        UsersDao usersDao = new UsersDao();
-        User user = usersDao.findByLogin(login).get(0);
-        return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, user.getId());
+    public List<Card> findAllCardsFromDesk(String deskName) {
+        DesksDao desksDao = new DesksDao();
+        Desk desk = desksDao.find(deskName).get(0);
+        return jdbcTemplate.query(SQL_SELECT_CARDS_FROM_DESK, cardsRowMapper, desk.getId());
     }
 
-    private RowMapper<Task> tasksRowMapper = (resultSet, i) -> Task.builder()
+    private RowMapper<Card> cardsRowMapper = (resultSet, i) -> Card.builder()
             .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))
-            .description(resultSet.getString("description"))
+            .dateOfCreation(resultSet.getDate("date_of_creation"))
             .build();
 
     @Override

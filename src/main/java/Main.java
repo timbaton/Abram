@@ -8,7 +8,7 @@ public class Main {
 //        UsersDao dao = new UsersDao();
 //        System.out.println(dao.findByLogin("ainaard").get(0));
 
-        userService.showUserInfo("ainaard");
+        userService.entryUser();
 
     }
 }
