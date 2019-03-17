@@ -15,12 +15,12 @@ public class UserService {
     // вход для юзера
     public void entryUser() {
         sc = new Scanner(System.in);
-//приветствие, запрос логина и пароля
 
+//приветствие, запрос логина и пароля
         System.out.println("Hello! Enter login and password");
         System.out.print("Login ");
         String login = sc.nextLine();
-        System.out.println("Password ");
+        System.out.print("Password ");
         String password = sc.nextLine();
 
 //  проверка аутентификации
