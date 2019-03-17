@@ -57,9 +57,13 @@ public class UserService {
             }
         } else if (command.equals("my tasks")) {
             List<Task> userTasks = tasksDao.findAllUserTasks(login);
-            System.out.println("");
-            System.out.println(userTasks);
+            System.out.println("Your tasks: ");
 
+            int taskNumber = 0;
+            for (Task task : userTasks) {
+                taskNumber++;
+                System.out.println(taskNumber + "." + task.getName());
+            }
         }
 
     }

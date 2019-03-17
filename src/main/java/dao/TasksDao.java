@@ -1,6 +1,7 @@
 package dao;
 
 import models.Task;
+import models.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,9 +16,9 @@ public class TasksDao {
 
     private JdbcTemplate jdbcTemplate;
     private Connection connection = null;
-    
-    private final String SQL_SELECT_TASKS_OF_USER = "select * from task_to_user\n" +
-            "       inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?\n";
+
+    private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name, task.description\n" +
+            "from task_to_user inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?";
 
     public TasksDao() {
         try {
@@ -31,14 +32,14 @@ public class TasksDao {
     }
 
     public List<Task> findAllUserTasks(String login) {
-        return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, login);
+        UsersDao usersDao = new UsersDao();
+        User user = usersDao.findByLogin(login).get(0);
+        return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, user.getId());
     }
 
     private RowMapper<Task> tasksRowMapper = (resultSet, i) -> Task.builder()
             .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))
             .description(resultSet.getString("description"))
-            .card(resultSet.getLong("card_id"))
-            .user(resultSet.getLong("user_id"))
             .build();
 }
