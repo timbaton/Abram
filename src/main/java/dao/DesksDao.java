@@ -53,5 +53,6 @@ public class DesksDao implements SimpleDao {
 
     @Override
     public List<Desk> find(String name) {
-        return jdbcTemplate.query(SQL_SELECT_DESK_BY_NAME, deskRowMapper, name);    }
+        return jdbcTemplate.query(SQL_SELECT_DESK_BY_NAME, deskRowMapper, name);
+    }
 }

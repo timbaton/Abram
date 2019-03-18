@@ -53,7 +53,7 @@ public class UserService {
             userDesks = desksDao.findAllUserDesks(login);
             System.out.println("Your desks: ");
 
-            if(!userDesks.isEmpty()) {
+            if (!userDesks.isEmpty()) {
                 int deskNumber = 0;
                 for (Desk desk : userDesks) {
                     deskNumber++;
@@ -69,7 +69,7 @@ public class UserService {
 
 //  посмотреть карточки из данного стола
         command = sc.nextLine();
-        List<Card> userCards;
+        List<Card> userCards = new ArrayList<>();
         for (Desk desk : userDesks) {
             if (command.equals(desk.getName())) {
                 userCards = cardsDao.findAllCardsFromDesk(desk.getName());
@@ -83,6 +83,39 @@ public class UserService {
                     }
                 } else
                     System.out.println("No cards in this desk!");
+            }
+        }
+        showCardTasks(userCards);
+    }
+
+    private void showCardTasks(List<Card> userCards) {
+        command = sc.nextLine();
+        List<Task> userTasks;
+        for (Card card : userCards) {
+            if (command.equals(card.getName())) {
+                userTasks = tasksDao.findAllTasksFromCard(card.getName());
+                System.out.println(card.getName() + " " + "has tasks: ");
+
+                if (!userTasks.isEmpty()) {
+                    int taskNumber = 0;
+                    for (Task task : userTasks) {
+                        taskNumber++;
+                        System.out.println(taskNumber + "." + task.getName());
+                    }
+                    showTaskDescription(userTasks);
+                } else
+                    System.out.println("No tasks in this card!");
+            }
+        }
+    }
+
+    private void showTaskDescription(List<Task> userTasks) {
+
+        System.out.println("Enter the name of task to see the description");
+        command = sc.nextLine();
+        for (Task task : userTasks) {
+            if (command.equals(task.getName())) {
+                System.out.println(tasksDao.find(task.getName()).get(0).getDescription());
             }
         }
     }
