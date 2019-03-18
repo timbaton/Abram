@@ -111,6 +111,7 @@ public class UserService {
 
     private void showTaskDescription(List<Task> userTasks) {
 
+//  посмотреть описание таска
         System.out.println("Enter the name of task to see the description");
         command = sc.nextLine();
         for (Task task : userTasks) {
