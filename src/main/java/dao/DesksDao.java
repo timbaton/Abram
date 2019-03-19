@@ -75,6 +75,15 @@ public class DesksDao implements SimpleDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(findAllUserDesks(login));
+        System.out.println(printDesks(findAllUserDesks(login)));
+    }
+
+    private StringBuilder printDesks(List<Desk> desks){
+        StringBuilder result = new StringBuilder();
+        System.out.println("Your desks: ");
+        for(Desk desk : desks) {
+            result.append(desk.getName()).append("\n");
+        }
+        return result;
     }
 }

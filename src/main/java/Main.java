@@ -28,7 +28,7 @@ public class Main {
                 userService.entryUser(login, password);
             case "add desk":
                 DesksDao desksDao = new DesksDao();
-                System.out.println("Add desk");
+                System.out.println("Give the name to your desk");
                 String deskName = scanner.nextLine();
                 desksDao.add(deskName, login);
                 break;
