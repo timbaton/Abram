@@ -18,21 +18,13 @@ import java.util.Scanner;
 public class UserService {
 
     private String command = "";
-    private Scanner sc;
+    private Scanner sc = new Scanner(System.in);
     private UsersDao usersDao = new UsersDao();
     private TasksDao tasksDao = new TasksDao();
     private DesksDao desksDao = new DesksDao();
     private CardsDao cardsDao = new CardsDao();
 
-    public void entryUser() {
-        sc = new Scanner(System.in);
-
-//  приветствие, запрос логина и пароля
-        System.out.println("Hello! Enter login and password");
-        System.out.print("Login ");
-        String login = sc.nextLine();
-        System.out.print("Password ");
-        String password = sc.nextLine();
+    public void entryUser(String login,String password) {
 
 //  проверка аутентификации
         User userCandidate = usersDao.findByLogin(login).get(0);

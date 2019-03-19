@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class Desk {
     private Long id;
-    private Date dataOfCreation;
+    private String dataOfCreation;
     private String name;
     private Long creator;
 

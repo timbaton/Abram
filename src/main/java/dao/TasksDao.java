@@ -61,4 +61,9 @@ public class TasksDao implements SimpleDao{
     public List<Task> find(String name) {
         return jdbcTemplate.query(SQL_SELECT_TASK_BY_NAME, tasksRowMapper, name);
     }
+
+    @Override
+    public void add(String name, String login) {
+
+    }
 }

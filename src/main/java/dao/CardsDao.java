@@ -44,7 +44,7 @@ public class CardsDao implements SimpleDao {
     private RowMapper<Card> cardsRowMapper = (resultSet, i) -> Card.builder()
             .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))
-            .dateOfCreation(resultSet.getDate("date_of_creation"))
+            .dateOfCreation(resultSet.getString("date_of_creation"))
             .build();
 
     @Override
@@ -55,5 +55,10 @@ public class CardsDao implements SimpleDao {
     @Override
     public List<Card> find(String name) {
         return jdbcTemplate.query(SQL_SELECT_CARD_BY_NAME, cardsRowMapper, name);
+    }
+
+    @Override
+    public void add(String name, String login) {
+
     }
 }

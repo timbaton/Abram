@@ -12,7 +12,7 @@ import lombok.*;
 public class Card {
     private Long id;
     private String name;
-    private Date dateOfCreation;
+    private String dateOfCreation;
 
     // в бд нет такого, у каждого таска есть ссылка на карточку
     private List<Task> tasks;

@@ -46,6 +46,11 @@ public class UsersDao implements SimpleDao {
         return jdbcTemplate.query(SQL_SELECT_USER_BY_NAME, userRowMapper, name);
     }
 
+    @Override
+    public void add(String name, String login) {
+
+    }
+
     public List<User> findByLogin(String login) {
         return jdbcTemplate.query(SQL_SELECT_USER_BY_LOGIN, userRowMapper, login);
     }
