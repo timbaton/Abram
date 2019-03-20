@@ -3,15 +3,9 @@ package dao;
 import models.Desk;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -24,15 +18,13 @@ public class DesksDao implements SimpleDao {
     private final Connection connection;
 
     private final String SQL_SELECT_DESK_BY_NAME = "SELECT * FROM desk WHERE name= ?";
-    private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name, desk.date_of_creation, desk.creator\n" +
-            "from user_to_desk inner join desk on user_to_desk.user_id = desk.creator\n" +
-            "where user_to_desk.user_id = ?";
+    private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name, desk.date_of_creation, desk.creator from desk inner join\n" +
+            "(select ud.desk_id from user_to_desk ud inner join \"user\" u on ud.user_id = u.id where u.id = ?) as t on desk.id = t.desk_id";
     private final String SQL_INSERT_NEW_DESK = "insert into desk(name,date_of_creation,creator) values(?,?,?)";
     private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
 
     @Autowired
     public DesksDao(JdbcTemplate jdbcTemplate, Connection connection) {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         this.jdbcTemplate = jdbcTemplate;
         this.connection = connection;
     }
