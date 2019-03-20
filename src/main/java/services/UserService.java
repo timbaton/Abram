@@ -50,9 +50,6 @@ public class UserService {
     }
 
 
-    //    private void showDeskCards(List<Desk> userDesks) {
-//
-////
 //    private void showCardTasks(List<Card> userCards) {
 //        command = sc.nextLine();
 //        List<Task> userTasks;

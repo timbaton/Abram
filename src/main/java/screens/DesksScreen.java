@@ -51,13 +51,7 @@ public class DesksScreen {
                 break;
             case "2":
             case "open":
-                System.out.println("Выберете доску: ");
-                for (int i = 0; i < desks.size(); i ++) {
-                    System.out.println(i + ")" + desks.get(i).getName());
-                }
-                switch (scanner.nextLine()) {
-
-                }
+                showDeskCards();
                 break;
             case "3":
             case "quit":
@@ -71,7 +65,14 @@ public class DesksScreen {
     }
 
     //    посмотреть карточки из данного стола
-    private void showDeskCards(Desk desk) {
+    private void showDeskCards() {
+        System.out.println("Выберете номер доски: ");
+        for (int i = 0; i < desks.size(); i++) {
+            System.out.println(i + 1 + ")" + desks.get(i).getName());
+        }
+        Desk openingDesk = desks.get(Integer.valueOf(scanner.nextLine()) - 1);
+
+
 
     }
 }
