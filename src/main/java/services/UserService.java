@@ -44,13 +44,14 @@ public class UserService {
     }
 
     //User Service - сервис user'a. Он отвечает за всё, что связано с юзером, за отоборажение он отвечать не должен.
-//раньше тут был метод private void setUsersDesks(User user), что неправильно.
+//раньше тут был метод private void showUsersDesks(String login), что неправильно.
     private void setUsersDesks(User user) {
 
 //  посмотреть все столы юзера
 //        command = sc.nextLine(); -- зачем?
         List<Desk> userDesks;
 //        if (command.equals("my desks")) {  -- зачем?
+        //раньше ты в даошки кидала логин юзера, а там из бд опять вытаскивала его. Тоже лишняя работа
         userDesks = desksDao.findAllUserDesks(user);
 
         //в этом методе достаточно только установить для пользователя его доски.
