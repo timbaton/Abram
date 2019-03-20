@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 import singletons.ApplicationContextSingleton;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class UsersDao implements SimpleDao {
     }
 
     @Override
-    public void add(String name, String login) {
+    public void add(String name, User user) {
 
     }
 

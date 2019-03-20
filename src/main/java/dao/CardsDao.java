@@ -58,7 +58,7 @@ public class CardsDao implements SimpleDao {
     }
 
     @Override
-    public void add(String name, String login) {
+    public void add(String name, User user) {
 
     }
 }

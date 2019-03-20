@@ -22,7 +22,7 @@
     <!--<bean id="tasksDao" class="dao.TasksDao"/>-->
     <!--<bean id="destDao" class="dao.DesksDao"/>-->
 
-    <!--<bean id="deskService" class="services.DeskService"/>-->
+    <!--<bean id="deskService" class="services.MainMenuServicevice"/>-->
 
     <bean id="scannerConsole" class="utils.ScannerFactory"/>
 

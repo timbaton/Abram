@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ public class DesksDao implements SimpleDao {
             "from user_to_desk inner join desk on user_to_desk.user_id = desk.creator\n" +
             "where user_to_desk.user_id = ?";
     private final String SQL_INSERT_NEW_DESK = "insert into desk(name,date_of_creation,creator) values(?,?,?)";
+    private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
 
     public DesksDao() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
@@ -57,10 +59,7 @@ public class DesksDao implements SimpleDao {
     }
 
     @Override
-    public void add(String name, String login) {
-//        return jdbcTemplate.update(SQL_INSERT_NEW_DESK);
-        UsersDao usersDao = new UsersDao();
-        User user = usersDao.findByLogin(login).get(0);
+    public void add(String name, User user) {
         try {
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT_NEW_DESK);
             ps.setString(1, name);

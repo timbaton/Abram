@@ -37,50 +37,22 @@ public class UserService {
             System.out.println("You logged in successfully");
             setUsersDesks(curUser);
             return curUser;
-        } else {
-            System.out.println("Oops! Invalid data!");
-            return null;
         }
+        return null;
     }
 
-    //User Service - сервис user'a. Он отвечает за всё, что связано с юзером, за отоборажение он отвечать не должен.
-//раньше тут был метод private void showUsersDesks(String login), что неправильно.
     private void setUsersDesks(User user) {
-
-//  посмотреть все столы юзера
-//        command = sc.nextLine(); -- зачем?
+        //  посмотреть все столы юзера
         List<Desk> userDesks;
-//        if (command.equals("my desks")) {  -- зачем?
-        //раньше ты в даошки кидала логин юзера, а там из бд опять вытаскивала его. Тоже лишняя работа
         userDesks = desksDao.findAllUserDesks(user);
 
-        //в этом методе достаточно только установить для пользователя его доски.
         user.setOwnDesks(userDesks);
     }
 
 
     //    private void showDeskCards(List<Desk> userDesks) {
 //
-////  посмотреть карточки из данного стола
-//        command = sc.nextLine();
-//        List<Card> userCards = new ArrayList<>();
-//        for (Desk desk : userDesks) {
-//            if (command.equals(desk.getName())) {
-//                userCards = cardsDao.findAllCardsFromDesk(desk.getName());
-//                System.out.println(desk.getName() + " " + "has cards: ");
-//
-//                if (!userCards.isEmpty()) {
-//                    int cardNumber = 0;
-//                    for (Card card : userCards) {
-//                        cardNumber++;
-//                        System.out.println(cardNumber + "." + card.getName());
-//                    }
-//                } else
-//                    System.out.println("No cards in this desk!");
-//            }
-//        }
-//        showCardTasks(userCards);
-//    }
+////
 //    private void showCardTasks(List<Card> userCards) {
 //        command = sc.nextLine();
 //        List<Task> userTasks;

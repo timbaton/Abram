@@ -21,23 +21,18 @@ public class DeskService {
         desksDao = new DesksDao();
     }
 
-    public void showUsersDesks(User user) {
-        this.user = user;
+    public List<Desk> getDesks(User user) {
+        DeskService.user = user;
         userDesks = desksDao.findAllUserDesks(user);
         if (!userDesks.isEmpty()) {
-            System.out.println("Your desks: ");
-            int deskNumber = 0;
-            for (Desk desk : userDesks) {
-                deskNumber++;
-                System.out.println(deskNumber + "." + desk.getName());
-            }
-        } else
-            System.out.println(user.getName() + " doesn't have any desks!");
+            return userDesks;
+        }
+        return null;
     }
 
     public boolean addNewDesk(String name) {
+        desksDao.add(name, user);
         System.out.println("todo: added new desk" + name);
-//        TODO: fix this shieeeet
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         Scanner scanner = context.getBean(ScannerFactory.class).getSystemIn();
 
