@@ -19,11 +19,20 @@
 
     <bean id="connection" class="java.sql.Connection" factory-bean="dataSource" factory-method="getConnection"/>
 
-    <!--<bean id="tasksDao" class="dao.TasksDao"/>-->
-    <!--<bean id="destDao" class="dao.DesksDao"/>-->
 
-    <!--<bean id="deskService" class="services.MainMenuServicevice"/>-->
+    <!--Services-->
+    <bean id="userService" class="services.UserService"/>
+    <bean id="deskService" class="services.DeskService"/>
 
-    <bean id="scannerConsole" class="utils.ScannerFactory"/>
+    <!--DAO-->
+    <bean id="destDao" class="dao.DesksDao"/>
+    <bean id="usersDao" class="dao.UsersDao"/>
+
+    <!--Screens-->
+    <bean id="desksScreen" class="screens.DesksScreen"/>
+
+
+    <bean id="curUser" class="models.User" factory-bean="userService" factory-method="getUser"/>
+    <bean id="scannerFactory" class="utils.ScannerFactory"/>
 
 </beans>

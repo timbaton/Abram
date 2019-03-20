@@ -3,6 +3,7 @@ package dao;
 import models.Desk;
 import models.Task;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,9 +26,9 @@ public class UsersDao implements SimpleDao {
     private final String SQL_SELECT_USER_BY_NAME = "SELECT * FROM \"user\" WHERE name= ?";
     private final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM \"user\" WHERE login= ?";
 
-    public UsersDao() {
-        ApplicationContext context = ApplicationContextSingleton.getInstance();
-        jdbcTemplate = context.getBean(JdbcTemplate.class);
+    @Autowired
+    public UsersDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override

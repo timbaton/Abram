@@ -3,6 +3,7 @@ package services;
 import dao.DesksDao;
 import models.Desk;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import screens.DesksScreen;
@@ -13,12 +14,14 @@ import java.util.Scanner;
 
 public class DeskService {
     private static DesksDao desksDao;
+    private static DesksScreen desksScreen;
     private static User user;
     private static List<Desk> userDesks;
 
-    public DeskService() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        desksDao = new DesksDao();
+    @Autowired
+    public DeskService(DesksDao desksDao, User user) {
+        this.desksDao = desksDao;
+        this.user = user;
     }
 
     public List<Desk> getDesks(User user) {
@@ -39,8 +42,7 @@ public class DeskService {
         switch (scanner.nextLine()) {
             case "1":
             case "quit":
-                DesksScreen desksScreen = new DesksScreen(user);
-                desksScreen.openScreen();
+                desksScreen.openScreen(user);
                 break;
             default:
                 System.out.println("please, enter correct value");

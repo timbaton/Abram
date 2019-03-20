@@ -30,10 +30,11 @@ public class DesksDao implements SimpleDao {
     private final String SQL_INSERT_NEW_DESK = "insert into desk(name,date_of_creation,creator) values(?,?,?)";
     private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
 
-    public DesksDao() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        this.jdbcTemplate = context.getBean(JdbcTemplate.class);
-        this.connection = context.getBean(Connection.class);
+    @Autowired
+    public DesksDao(JdbcTemplate jdbcTemplate, Connection connection) {
+//        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+        this.jdbcTemplate = jdbcTemplate;
+        this.connection = connection;
     }
 
 

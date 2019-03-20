@@ -36,9 +36,10 @@ public class CardsDao implements SimpleDao {
     }
 
     public List<Card> findAllCardsFromDesk(String deskName) {
-        DesksDao desksDao = new DesksDao();
-        Desk desk = desksDao.find(deskName).get(0);
-        return jdbcTemplate.query(SQL_SELECT_CARDS_FROM_DESK, cardsRowMapper, desk.getId());
+//        TODO: fix it
+//        DesksDao desksDao = new DesksDao();
+//        Desk desk = desksDao.find(deskName).get(0);
+        return jdbcTemplate.query(SQL_SELECT_CARDS_FROM_DESK, cardsRowMapper, 1);
     }
 
     private RowMapper<Card> cardsRowMapper = (resultSet, i) -> Card.builder()

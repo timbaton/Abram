@@ -1,24 +1,23 @@
 package services;
 
-import dao.CardsDao;
 import dao.DesksDao;
-import dao.TasksDao;
 import dao.UsersDao;
-import models.Card;
 import models.Desk;
-import models.Task;
 import models.User;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-@Component
 public class UserService {
-    User curUser = new User();
-    private UsersDao usersDao = new UsersDao();
-    private DesksDao desksDao = new DesksDao();
+    private User curUser = new User();
+    private UsersDao usersDao;
+    private DesksDao desksDao;
+
+    @Autowired
+    public UserService(UsersDao usersDao, DesksDao desksDao) {
+        this.usersDao = usersDao;
+        this.desksDao = desksDao;
+    }
 
     public User entryUser(String login, String password) {
 
@@ -49,6 +48,9 @@ public class UserService {
         user.setOwnDesks(userDesks);
     }
 
+    public User getUser() {
+        return curUser;
+    }
 
 //    private void showCardTasks(List<Card> userCards) {
 //        command = sc.nextLine();

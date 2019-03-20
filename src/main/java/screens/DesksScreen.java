@@ -1,7 +1,9 @@
 package screens;
 
+import dao.UsersDao;
 import models.Desk;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import services.DeskService;
@@ -16,15 +18,13 @@ public class DesksScreen {
     private static List<Desk> desks;
     private static DeskService deskService;
 
-    public DesksScreen(User user) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        deskService = new DeskService();
-        scanner = context.getBean(ScannerFactory.class).getSystemIn();
-
-        DesksScreen.user = user;
+    @Autowired
+    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService) {
+        scanner = scannerFactory.getSystemIn();
+        DesksScreen.deskService = deskService;
     }
 
-    public void openScreen() {
+    public void openScreen(User user) {
         desks = deskService.getDesks(user);
         showDesks();
 
@@ -75,4 +75,12 @@ public class DesksScreen {
 
 
     }
+//
+//    public void setUser(User user) {
+//        DesksScreen.user = user;
+//    }
+//
+//    public User getUser() {
+//        return user;
+//    }
 }
