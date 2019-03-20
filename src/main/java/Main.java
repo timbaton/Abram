@@ -1,14 +1,17 @@
 import dao.CardsDao;
 import dao.DesksDao;
 import dao.TasksDao;
+import models.User;
+import screens.DesksScreen;
 import services.UserService;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-
+        User user;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! If you want to enter, print enter.\nIf you want to add\nnew desk - print add desk\n" +
                 "new card - add card\n" +
@@ -23,27 +26,10 @@ public class Main {
         System.out.print("Password ");
         String password = scanner.nextLine();
 
-        switch (scanner.nextLine()) {
-            case "entry":
-                userService.entryUser(login, password);
-            case "add desk":
-                DesksDao desksDao = new DesksDao();
-                System.out.println("Give the name to your desk");
-                String deskName = scanner.nextLine();
-                desksDao.add(deskName, login);
-                break;
-            case "add card":
-                CardsDao cardsDao = new CardsDao();
-                System.out.println("Add card");
-//                cardsDao.addNewCard();
-                break;
-            case "add task":
-                TasksDao tasksDao = new TasksDao();
-                System.out.println("Add task");
-//                tasksDao.addNewTask();
-                break;
+        user = userService.entryUser(login, password);
+        if (user != null) {
+            DesksScreen desksScreen = new DesksScreen(user);
+            desksScreen.openScreen();
         }
-
-
     }
 }

@@ -16,100 +16,112 @@ import java.util.Scanner;
 
 @Component
 public class UserService {
-
-    private String command = "";
-    private Scanner sc = new Scanner(System.in);
+    User curUser = new User();
     private UsersDao usersDao = new UsersDao();
-    private TasksDao tasksDao = new TasksDao();
     private DesksDao desksDao = new DesksDao();
-    private CardsDao cardsDao = new CardsDao();
 
-    public void entryUser(String login,String password) {
+    public User entryUser(String login, String password) {
 
 //  проверка аутентификации
-        User userCandidate = usersDao.findByLogin(login).get(0);
-        if (login.equals(userCandidate.getLogin()) && password.equals(userCandidate.getPassword())) {
+        List<User> suitedUsers = usersDao.findByLogin(login);
+
+        //если пользователей с таким логином нет - возвращаем null
+        if (suitedUsers.size() != 0) {
+            curUser = suitedUsers.get(0);
+        } else {
+            return null;
+        }
+
+        //если пароль не совпадает - возвращаем null
+        if (password.equals(curUser.getPassword())) {
             System.out.println("You logged in successfully");
+            setUsersDesks(curUser);
+            return curUser;
         } else {
             System.out.println("Oops! Invalid data!");
+            return null;
         }
-        showUserDesks(login);
     }
 
-    private void showUserDesks(String login) {
+    //User Service - сервис user'a. Он отвечает за всё, что связано с юзером, за отоборажение он отвечать не должен.
+//раньше тут был метод private void setUsersDesks(User user), что неправильно.
+    private void setUsersDesks(User user) {
 
 //  посмотреть все столы юзера
-        command = sc.nextLine();
+//        command = sc.nextLine(); -- зачем?
         List<Desk> userDesks;
-        if (command.equals("my desks")) {
-            userDesks = desksDao.findAllUserDesks(login);
-            System.out.println("Your desks: ");
+//        if (command.equals("my desks")) {  -- зачем?
+        userDesks = desksDao.findAllUserDesks(user);
 
-            if (!userDesks.isEmpty()) {
-                int deskNumber = 0;
-                for (Desk desk : userDesks) {
-                    deskNumber++;
-                    System.out.println(deskNumber + "." + desk.getName());
-                }
-                showDeskCards(userDesks);
-            } else
-                System.out.println("User doesn't have any desks!");
-        }
-    }
+        //в этом методе достаточно только установить для пользователя его доски.
+        user.setOwnDesks(userDesks);
+//
+        System.out.println("Your desks: ");
 
-    private void showDeskCards(List<Desk> userDesks) {
-
-//  посмотреть карточки из данного стола
-        command = sc.nextLine();
-        List<Card> userCards = new ArrayList<>();
-        for (Desk desk : userDesks) {
-            if (command.equals(desk.getName())) {
-                userCards = cardsDao.findAllCardsFromDesk(desk.getName());
-                System.out.println(desk.getName() + " " + "has cards: ");
-
-                if (!userCards.isEmpty()) {
-                    int cardNumber = 0;
-                    for (Card card : userCards) {
-                        cardNumber++;
-                        System.out.println(cardNumber + "." + card.getName());
-                    }
-                } else
-                    System.out.println("No cards in this desk!");
+        if (!userDesks.isEmpty()) {
+            int deskNumber = 0;
+            for (Desk desk : userDesks) {
+                deskNumber++;
+                System.out.println(deskNumber + "." + desk.getName());
             }
-        }
-        showCardTasks(userCards);
+//            showDeskCards(userDesks);
+        } else
+            System.out.println("User doesn't have any desks!");
     }
 
-    private void showCardTasks(List<Card> userCards) {
-        command = sc.nextLine();
-        List<Task> userTasks;
-        for (Card card : userCards) {
-            if (command.equals(card.getName())) {
-                userTasks = tasksDao.findAllTasksFromCard(card.getName());
-                System.out.println(card.getName() + " " + "has tasks: ");
 
-                if (!userTasks.isEmpty()) {
-                    int taskNumber = 0;
-                    for (Task task : userTasks) {
-                        taskNumber++;
-                        System.out.println(taskNumber + "." + task.getName());
-                    }
-                    showTaskDescription(userTasks);
-                } else
-                    System.out.println("No tasks in this card!");
-            }
-        }
-    }
+    //    private void showDeskCards(List<Desk> userDesks) {
+//
+////  посмотреть карточки из данного стола
+//        command = sc.nextLine();
+//        List<Card> userCards = new ArrayList<>();
+//        for (Desk desk : userDesks) {
+//            if (command.equals(desk.getName())) {
+//                userCards = cardsDao.findAllCardsFromDesk(desk.getName());
+//                System.out.println(desk.getName() + " " + "has cards: ");
+//
+//                if (!userCards.isEmpty()) {
+//                    int cardNumber = 0;
+//                    for (Card card : userCards) {
+//                        cardNumber++;
+//                        System.out.println(cardNumber + "." + card.getName());
+//                    }
+//                } else
+//                    System.out.println("No cards in this desk!");
+//            }
+//        }
+//        showCardTasks(userCards);
+//    }
+//    private void showCardTasks(List<Card> userCards) {
+//        command = sc.nextLine();
+//        List<Task> userTasks;
+//        for (Card card : userCards) {
+//            if (command.equals(card.getName())) {
+//                userTasks = tasksDao.findAllTasksFromCard(card.getName());
+//                System.out.println(card.getName() + " " + "has tasks: ");
+//
+//                if (!userTasks.isEmpty()) {
+//                    int taskNumber = 0;
+//                    for (Task task : userTasks) {
+//                        taskNumber++;
+//                        System.out.println(taskNumber + "." + task.getName());
+//                    }
+//                    showTaskDescription(userTasks);
+//                } else
+//                    System.out.println("No tasks in this card!");
+//            }
+//        }
+//    }
 
-    private void showTaskDescription(List<Task> userTasks) {
-
-//  посмотреть описание таска
-        System.out.println("Enter the name of task to see the description");
-        command = sc.nextLine();
-        for (Task task : userTasks) {
-            if (command.equals(task.getName())) {
-                System.out.println(tasksDao.find(task.getName()).get(0).getDescription());
-            }
-        }
-    }
+//    private void showTaskDescription(List<Task> userTasks) {
+//
+////  посмотреть описание таска
+//        System.out.println("Enter the name of task to see the description");
+//        command = sc.nextLine();
+//        for (Task task : userTasks) {
+//            if (command.equals(task.getName())) {
+//                System.out.println(tasksDao.find(task.getName()).get(0).getDescription());
+//            }
+//        }
+//    }
 }

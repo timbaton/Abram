@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
+import singletons.ApplicationContextSingleton;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,7 +18,6 @@ import java.util.List;
 
 @Component
 public class UsersDao implements SimpleDao {
-    private Connection connection = null;
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_ALL = "SELECT * FROM \"user\"";
@@ -25,14 +25,8 @@ public class UsersDao implements SimpleDao {
     private final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM \"user\" WHERE login= ?";
 
     public UsersDao() {
-        try {
-            ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-            DriverManagerDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
-            jdbcTemplate = context.getBean(JdbcTemplate.class);
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ApplicationContext context = ApplicationContextSingleton.getInstance();
+        jdbcTemplate = context.getBean(JdbcTemplate.class);
     }
 
     @Override
