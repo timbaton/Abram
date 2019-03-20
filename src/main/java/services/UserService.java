@@ -56,18 +56,6 @@ public class UserService {
 
         //в этом методе достаточно только установить для пользователя его доски.
         user.setOwnDesks(userDesks);
-//
-        System.out.println("Your desks: ");
-
-        if (!userDesks.isEmpty()) {
-            int deskNumber = 0;
-            for (Desk desk : userDesks) {
-                deskNumber++;
-                System.out.println(deskNumber + "." + desk.getName());
-            }
-//            showDeskCards(userDesks);
-        } else
-            System.out.println("User doesn't have any desks!");
     }
 
 

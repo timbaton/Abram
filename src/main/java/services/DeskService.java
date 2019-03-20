@@ -17,7 +17,7 @@ public class DeskService {
     private static List<Desk> userDesks;
 
     public DeskService() {
-//        ApplicationContext context = ApplicationContextSingleton.getInstance();
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
         desksDao = new DesksDao();
     }
 

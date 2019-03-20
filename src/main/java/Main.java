@@ -9,27 +9,36 @@ import javax.jws.soap.SOAPBinding;
 import java.util.Scanner;
 
 public class Main {
+    static UserService userService;
 
     public static void main(String[] args) {
-        User user;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello! If you want to enter, print enter.\nIf you want to add\nnew desk - print add desk\n" +
-                "new card - add card\n" +
-                "new task - add task.");
+        System.out.println("Hello!");
 
-        UserService userService = new UserService();
+        userService = new UserService();
+
+        startLogin();
+
+    }
+
+    private static void startLogin() {
+
+        Scanner scanner = new Scanner(System.in);
 
         //  приветствие, запрос логина и пароля
-        System.out.println("Hello! Enter login and password");
+        System.out.println("Enter login and password");
+
         System.out.print("Login ");
         String login = scanner.nextLine();
         System.out.print("Password ");
         String password = scanner.nextLine();
 
-        user = userService.entryUser(login, password);
+        User user = userService.entryUser(login, password);
         if (user != null) {
             DesksScreen desksScreen = new DesksScreen(user);
             desksScreen.openScreen();
+        } else {
+            System.out.println("Please, try again");
+            startLogin();
         }
     }
 }
