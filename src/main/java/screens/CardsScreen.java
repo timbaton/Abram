@@ -3,15 +3,21 @@ package screens;
 import dao.CardsDao;
 import models.Card;
 import models.Desk;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class CardsScreen {
-    CardsDao cardsDao;
+    @Autowired
+    private CardsDao cardsDao;
 
     public void openCards(Desk desk) {
 
 //  посмотреть карточки из данного стола
         List<Card> userCards;
+        cardsDao = new CardsDao();
         userCards = cardsDao.findAllCardsFromDesk(desk.getName());
         System.out.println(desk.getName() + " " + "has cards: ");
 

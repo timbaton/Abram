@@ -1,6 +1,7 @@
 package dao;
 
 import models.User;
+import org.springframework.stereotype.Component;
 
 import javax.jws.soap.SOAPBinding;
 import java.util.List;

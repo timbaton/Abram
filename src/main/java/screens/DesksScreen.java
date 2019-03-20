@@ -1,27 +1,27 @@
 package screens;
 
-import dao.UsersDao;
 import models.Desk;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import services.DeskService;
 import utils.ScannerFactory;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class DesksScreen {
-    private static User user;
     private static Scanner scanner;
     private static List<Desk> desks;
     private static DeskService deskService;
+    private static CardsScreen cardsScreen;
 
     @Autowired
     public DesksScreen(ScannerFactory scannerFactory, DeskService deskService) {
         scanner = scannerFactory.getSystemIn();
         DesksScreen.deskService = deskService;
+        cardsScreen = new CardsScreen();
     }
 
     public void openScreen(User user) {
@@ -71,16 +71,6 @@ public class DesksScreen {
             System.out.println(i + 1 + ")" + desks.get(i).getName());
         }
         Desk openingDesk = desks.get(Integer.valueOf(scanner.nextLine()) - 1);
-
-
-
+        cardsScreen.openCards(openingDesk);
     }
-//
-//    public void setUser(User user) {
-//        DesksScreen.user = user;
-//    }
-//
-//    public User getUser() {
-//        return user;
-//    }
 }

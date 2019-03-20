@@ -5,6 +5,7 @@ import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class DesksDao implements SimpleDao {
 
     private final JdbcTemplate jdbcTemplate;

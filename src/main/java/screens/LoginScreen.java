@@ -3,11 +3,13 @@ package screens;
 import models.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import services.UserService;
 import utils.ScannerFactory;
 
 import java.util.Scanner;
 
+@Component
 public class LoginScreen {
 
     public void startLogging() {

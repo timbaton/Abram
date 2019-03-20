@@ -6,12 +6,14 @@ import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import screens.DesksScreen;
 import utils.ScannerFactory;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class DeskService {
     private static User user;
     private static Scanner scanner;

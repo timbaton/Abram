@@ -3,17 +3,15 @@ package dao;
 import models.Card;
 import models.Task;
 import models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
+@Component
 public class TasksDao implements SimpleDao {
     private JdbcTemplate jdbcTemplate;
 

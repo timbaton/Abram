@@ -5,9 +5,11 @@ import dao.UsersDao;
 import models.Desk;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class UserService {
     private User curUser = new User();
     private UsersDao usersDao;
