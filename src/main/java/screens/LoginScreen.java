@@ -9,15 +9,12 @@ import utils.ScannerFactory;
 import java.util.Scanner;
 
 public class LoginScreen {
-    private static UserService userService;
-    private static DesksScreen desksScreen;
-    private static Scanner scanner;
 
     public void startLogging() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        userService = context.getBean(UserService.class);
-        scanner = context.getBean(ScannerFactory.class).getSystemIn();
-        desksScreen = context.getBean(DesksScreen.class);
+        UserService userService = context.getBean(UserService.class);
+        Scanner scanner = context.getBean(ScannerFactory.class).getSystemIn();
+        DesksScreen desksScreen = context.getBean(DesksScreen.class);
 
         //  приветствие, запрос логина и пароля
         System.out.println("Enter login and password");

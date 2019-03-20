@@ -48,6 +48,7 @@ public class UserService {
         user.setOwnDesks(userDesks);
     }
 
+    //метод для Spring'a, чтобы внедрить зависимость в DeskService
     public User getUser() {
         return curUser;
     }
