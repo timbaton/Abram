@@ -36,7 +36,7 @@ public class DesksScreen {
         int deskNumber = 0;
         for (Desk desk : desks) {
             deskNumber++;
-            System.out.println(deskNumber + "." + desk.getName());
+            System.out.println(deskNumber + ")" + desk.getName());
         }
     }
 

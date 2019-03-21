@@ -24,7 +24,9 @@ public class DesksDao implements SimpleDao {
     private final String SQL_SELECT_DESK_BY_NAME = "SELECT * FROM desk WHERE name= ?";
     private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name, desk.date_of_creation, desk.creator from desk inner join\n" +
             "(select ud.desk_id from user_to_desk ud inner join \"user\" u on ud.user_id = u.id where u.id = ?) as t on desk.id = t.desk_id";
-    private final String SQL_INSERT_NEW_DESK = "insert into desk(name,date_of_creation,creator) values(?,?,?)";
+    private final String SQL_INSERT_NEW_DESK = "with ins1 as (insert into desk (name, date_of_creation, creator) VALUES (?, ?, ?)\n" +
+            "returning id, creator)\n" +
+            "insert into user_to_desk(desk_id, user_id) values ((select id from ins1), (select creator from ins1))";
     private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
 
     public List<Desk> findAllUserDesks(User user) {
