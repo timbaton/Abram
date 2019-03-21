@@ -10,6 +10,7 @@ import java.util.List;
 
 @Component
 public class CardsScreen {
+
     @Autowired
     private CardsDao cardsDao;
 
@@ -17,7 +18,6 @@ public class CardsScreen {
 
 //  посмотреть карточки из данного стола
         List<Card> userCards;
-        cardsDao = new CardsDao();
         userCards = cardsDao.findAllCardsFromDesk(desk.getName());
         System.out.println(desk.getName() + " " + "has cards: ");
 

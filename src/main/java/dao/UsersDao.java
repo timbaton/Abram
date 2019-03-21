@@ -10,16 +10,12 @@ import java.util.List;
 
 @Component
 public class UsersDao implements SimpleDao {
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_ALL = "SELECT * FROM \"user\"";
     private final String SQL_SELECT_USER_BY_NAME = "SELECT * FROM \"user\" WHERE name= ?";
     private final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM \"user\" WHERE login= ?";
-
-    @Autowired
-    public UsersDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<User> findAll() {

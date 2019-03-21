@@ -14,14 +14,14 @@ import java.util.Scanner;
 public class DesksScreen {
     private static Scanner scanner;
     private static List<Desk> desks;
-    private static DeskService deskService;
-    private static CardsScreen cardsScreen;
+    @Autowired
+    private DeskService deskService;
+    @Autowired
+    private CardsScreen cardsScreen;
 
     @Autowired
-    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService) {
+    public DesksScreen(ScannerFactory scannerFactory) {
         scanner = scannerFactory.getSystemIn();
-        DesksScreen.deskService = deskService;
-        cardsScreen = new CardsScreen();
     }
 
     public void openScreen(User user) {

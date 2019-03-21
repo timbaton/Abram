@@ -28,12 +28,12 @@ public class TasksDao implements SimpleDao {
         return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, user.getId());
     }
 
-    public List<Task> findAllTasksFromCard(String cardName) {
+   /* public List<Task> findAllTasksFromCard(String cardName) {
         CardsDao cardsDao = new CardsDao();
         Card card = cardsDao.find(cardName).get(0);
         return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, card.getId());
     }
-
+*/
     private RowMapper<Task> tasksRowMapper = (resultSet, i) -> Task.builder()
             .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))
