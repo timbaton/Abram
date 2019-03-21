@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 @Component
 public class DesksScreen {
-    private static Scanner scanner;
+    private Scanner scanner;
     private static List<Desk> desks;
     @Autowired
     private DeskService deskService;
@@ -40,7 +40,7 @@ public class DesksScreen {
         }
     }
 
-    private void manageEvents() {
+    public void manageEvents() {
         System.out.println("What do you want to do?\n1)add desk     2)open      3)exit");
         switch (scanner.nextLine()) {
             case "1":

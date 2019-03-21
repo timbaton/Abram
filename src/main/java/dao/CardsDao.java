@@ -13,31 +13,29 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class CardsDao implements SimpleDao {
 
+    @Autowired
+    private DesksDao desksDao;
+    @Autowired
+    private Connection connection;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_CARDS_FROM_DESK = "select card.id, card.name, card.date_of_creation from card " +
             "inner join desk on card.desk_id = desk.id where desk.name = ?";
     private final String SQL_SELECT_CARD_BY_NAME = "select * from card where name = ?";
+    private final String SQL_INSERT_CARD_INTO_DESK = "insert into card(date_of_creation, name, desk_id) VALUES(?,?,?)";
 
     @Autowired
     public CardsDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    /* public CardsDao() {
-        try {
-            ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-            DriverManagerDataSource dataSource = (DriverManagerDataSource) context.getBean("dataSource");
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public List<Card> findAllCardsFromDesk(String deskName) {
         return jdbcTemplate.query(SQL_SELECT_CARDS_FROM_DESK, cardsRowMapper, deskName);
@@ -60,7 +58,19 @@ public class CardsDao implements SimpleDao {
     }
 
     @Override
-    public void add(String name, User user) {
+    public void add(String name, User user){}
 
+    public void addCard(String name, String deskName) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(SQL_INSERT_CARD_INTO_DESK);
+            Date date = new Date();
+            ps.setString(1,String.valueOf(date));
+            ps.setString(2, name);
+            Desk desk = desksDao.find(deskName).get(0);
+            ps.setInt(3, Math.toIntExact(desk.getId()));
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

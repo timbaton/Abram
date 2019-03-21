@@ -11,8 +11,9 @@
     <context:component-scan base-package="screens"/>-->
 
 
+    <context:component-scan base-package="utils"/>
     <!--utils-->
-    <bean id="scannerFactory" class="utils.ScannerFactory"/>
+    <!--<bean id="scannerFactory" class="utils.ScannerFactory"/>-->
 
     <bean name="dataSource" id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
@@ -31,6 +32,7 @@
     <!--Services-->
     <bean id="userService" class="services.UserService"/>
     <bean id="deskService" class="services.DeskService"/>
+    <bean id="cardsService" class="services.CardsService"/>
 
     <!--DAO-->
     <bean id="desksDao" class="dao.DesksDao"/>
