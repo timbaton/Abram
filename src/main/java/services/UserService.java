@@ -11,11 +11,16 @@ import java.util.List;
 
 @Component
 public class UserService {
+
     private User curUser = new User();
+    private final UsersDao usersDao;
+    private final DesksDao desksDao;
+
     @Autowired
-    private UsersDao usersDao;
-    @Autowired
-    private DesksDao desksDao;
+    public UserService(UsersDao usersDao, DesksDao desksDao) {
+        this.usersDao = usersDao;
+        this.desksDao = desksDao;
+    }
 
     /*@Autowired
     public UserService(UsersDao usersDao, DesksDao desksDao) {

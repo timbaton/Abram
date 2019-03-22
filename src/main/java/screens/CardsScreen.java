@@ -20,19 +20,18 @@ public class CardsScreen implements BaseScreen {
 
     private static List<Card> userCards;
     private Desk desk;
-    @Autowired
-    private CardsDao cardsDao;
-    @Autowired
-    private CardsService cardsService;
-    @Autowired
-    private DesksScreen desksScreen;
-    @Autowired
-    private TasksScreen tasksScreen;
+    private final CardsDao cardsDao;
+    private final CardsService cardsService;
+    private final DesksScreen desksScreen;
+    private final TasksScreen tasksScreen;
 
     @Autowired
-    public CardsScreen(ScannerFactory scannerFactory, DesksScreen desksScreen) {
+    public CardsScreen(ScannerFactory scannerFactory, CardsDao cardsDao, CardsService cardsService, DesksScreen desksScreen, TasksScreen tasksScreen) {
         this.scanner = scannerFactory.getSystemIn();
         this.desksScreen = desksScreen;
+        this.cardsDao = cardsDao;
+        this.cardsService = cardsService;
+        this.tasksScreen = tasksScreen;
     }
 
     public void setDesk(Desk desk) {

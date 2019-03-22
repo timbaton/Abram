@@ -15,16 +15,17 @@ import java.util.Scanner;
 
 @Component
 public class DeskService {
+
     private static User user;
     private static Scanner scanner;
-    @Autowired
-    private DesksDao desksDao;
-    @Autowired
-    private DesksScreen desksScreen;
+    private final DesksDao desksDao;
+    private final DesksScreen desksScreen;
 
     @Autowired
-    public DeskService(ScannerFactory scannerFactory) {
+    public DeskService(ScannerFactory scannerFactory, DesksDao desksDao, DesksScreen desksScreen) {
         scanner = scannerFactory.getSystemIn();
+        this.desksDao = desksDao;
+        this.desksScreen = desksScreen;
     }
 
     public List<Desk> getDesks(User user) {

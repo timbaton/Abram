@@ -12,16 +12,17 @@ import java.util.Scanner;
 
 @Component
 public class DesksScreen {
+
     private Scanner scanner;
     private static List<Desk> desks;
-    @Autowired
-    private DeskService deskService;
-    @Autowired
-    private CardsScreen cardsScreen;
+    private final DeskService deskService;
+    private final CardsScreen cardsScreen;
 
     @Autowired
-    public DesksScreen(ScannerFactory scannerFactory) {
+    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService, CardsScreen cardsScreen) {
         scanner = scannerFactory.getSystemIn();
+        this.deskService = deskService;
+        this.cardsScreen = cardsScreen;
     }
 
     public void openScreen(User user) {

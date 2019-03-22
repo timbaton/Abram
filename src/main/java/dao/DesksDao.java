@@ -16,10 +16,8 @@ import java.util.List;
 @Component
 public class DesksDao implements SimpleDao {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private Connection connection;
+    private final JdbcTemplate jdbcTemplate;
+    private final Connection connection;
 
     private final String SQL_SELECT_DESK_BY_NAME = "SELECT * FROM desk WHERE name= ?";
     private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name, desk.date_of_creation, desk.creator from desk inner join\n" +
@@ -28,6 +26,12 @@ public class DesksDao implements SimpleDao {
             "returning id, creator)\n" +
             "insert into user_to_desk(desk_id, user_id) values ((select id from ins1), (select creator from ins1))";
     private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
+
+    @Autowired
+    public DesksDao(JdbcTemplate jdbcTemplate, Connection connection) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.connection = connection;
+    }
 
     public List<Desk> findAllUserDesks(User user) {
         return jdbcTemplate.query(SQL_SELECT_DESKS_OF_USER, deskRowMapper, user.getId());

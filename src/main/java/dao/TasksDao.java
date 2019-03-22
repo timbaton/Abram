@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 public class TasksDao implements SimpleDao {
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name, task.description\n" +
