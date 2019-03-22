@@ -47,9 +47,6 @@ public class CardsScreen implements BaseScreen {
 
     public void showCards() {
 
-//  посмотреть карточки из данного стола
-
-//        System.out.println(desk.getName() + " " + "has cards: ");
         System.out.println("This desk has cards: ");
 
         if (!userCards.isEmpty()) {

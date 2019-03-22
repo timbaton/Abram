@@ -3,6 +3,8 @@ package dao;
 import models.Card;
 import models.Task;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,17 +15,18 @@ import java.util.List;
 
 @Component
 public class TasksDao implements SimpleDao {
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name, task.description\n" +
             "from task_to_user inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?";
     private final String SQL_SELECT_TASK_BY_NAME = "select * from task where name=?";
-    private final String SQL_SELECT_TASKS_FROM_CARD= "select task.id, task.card_id, task.description, task.name, task.user_id from task inner card on card.id = task.card_id\n" +
-            "where card.name = ?";
+    private final String SQL_SELECT_TASKS_FROM_CARD= "select task.id, task.card_id, task.description, task.name, task.user_id\n" +
+            "from task inner join card on card.id = task.card_id  where card.name = ?";
 
-    public TasksDao() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        jdbcTemplate = context.getBean(JdbcTemplate.class);
+    @Autowired
+    public TasksDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Task> findAllUserTasks(User user) {
