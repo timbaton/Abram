@@ -71,6 +71,8 @@ public class DesksScreen {
             System.out.println(i + 1 + ")" + desks.get(i).getName());
         }
         Desk openingDesk = desks.get(Integer.valueOf(scanner.nextLine()) - 1);
-        cardsScreen.openScreen(openingDesk);
+        cardsScreen.setDesk(openingDesk);
+
+        cardsScreen.openScreen();
     }
 }

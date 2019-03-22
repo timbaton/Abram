@@ -1,5 +1,6 @@
 package screens;
 
+import base.BaseScreen;
 import dao.CardsDao;
 import models.Card;
 import models.Desk;
@@ -13,11 +14,12 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class CardsScreen {
+public class CardsScreen implements BaseScreen {
 
     private Scanner scanner;
 
     private static List<Card> userCards;
+    private Desk desk;
     @Autowired
     private CardsDao cardsDao;
     @Autowired
@@ -33,10 +35,14 @@ public class CardsScreen {
         this.desksScreen = desksScreen;
     }
 
-    public void openScreen(Desk desk) {
+    public void setDesk(Desk desk) {
+        this.desk = desk;
+    }
+
+    public void openScreen() {
         userCards = cardsDao.findAllCardsFromDesk(desk.getName());
         showCards();
-        manageEvents(desk);
+        manageEvents();
     }
 
     public void showCards() {
@@ -56,7 +62,7 @@ public class CardsScreen {
             System.out.println("No cards in this desk!");
     }
 
-    private void manageEvents(Desk desk) {
+    public void manageEvents() {
         System.out.println("What do you want to do?\n1)add card     2)open      3)exit");
         switch (scanner.nextLine()) {
             case "1":
@@ -75,7 +81,7 @@ public class CardsScreen {
 
             default:
                 System.out.println("please, enter correct value");
-                manageEvents(desk);
+                manageEvents();
                 break;
         }
     }
