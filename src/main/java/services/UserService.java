@@ -22,15 +22,9 @@ public class UserService {
         this.desksDao = desksDao;
     }
 
-    /*@Autowired
-    public UserService(UsersDao usersDao, DesksDao desksDao) {
-        this.usersDao = usersDao;
-        this.desksDao = desksDao;
-    }*/
-
     public User entryUser(String login, String password) {
 
-//  проверка аутентификации
+        //  проверка аутентификации
         List<User> suitedUsers = usersDao.findByLogin(login);
 
         //если пользователей с таким логином нет - возвращаем null
@@ -50,38 +44,14 @@ public class UserService {
     }
 
     private void setUsersDesks(User user) {
-        //  посмотреть все столы юзера
-        List<Desk> userDesks;
-        userDesks = desksDao.findAllUserDesks(user);
-
+        List<Desk> userDesks = desksDao.findAllUserDesks(user);
         user.setOwnDesks(userDesks);
     }
 
-    //метод для Spring'a, чтобы внедрить зависимость в DeskService
+    //метод для того, чтобы получить текущего пользователя
     public User getUser() {
         return curUser;
     }
-
-//    private void showCardTasks(List<Card> userCards) {
-//        command = sc.nextLine();
-//        List<Task> userTasks;
-//        for (Card card : userCards) {
-//            if (command.equals(card.getName())) {
-//                userTasks = tasksDao.findAllTasksFromCard(card.getName());
-//                System.out.println(card.getName() + " " + "has tasks: ");
-//
-//                if (!userTasks.isEmpty()) {
-//                    int taskNumber = 0;
-//                    for (Task task : userTasks) {
-//                        taskNumber++;
-//                        System.out.println(taskNumber + "." + task.getName());
-//                    }
-//                    showTaskDescription(userTasks);
-//                } else
-//                    System.out.println("No tasks in this card!");
-//            }
-//        }
-//    }
 
 //    private void showTaskDescription(List<Task> userTasks) {
 //

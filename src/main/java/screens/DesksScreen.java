@@ -1,32 +1,42 @@
 package screens;
 
+import base.BaseAbstractClass;
 import models.Desk;
-import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import services.DeskService;
+import services.UserService;
 import utils.ScannerFactory;
 
 import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class DesksScreen {
+public class DesksScreen extends BaseAbstractClass {
 
     private Scanner scanner;
     private static List<Desk> desks;
-    private final DeskService deskService;
-    private final CardsScreen cardsScreen;
+    private static DeskService deskService;
+    private CardsScreen cardsScreen;
+    private UserService userService;
 
     @Autowired
-    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService, CardsScreen cardsScreen) {
+    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService, CardsScreen cardsScreen, UserService userService) {
         scanner = scannerFactory.getSystemIn();
+
+        cardsScreen.setPrefScreen(this);
+
         this.deskService = deskService;
+        this.userService = userService;
         this.cardsScreen = cardsScreen;
+
     }
 
-    public void openScreen(User user) {
-        desks = deskService.getDesks(user);
+    public void openScreen() {
+        deskService.setUser(userService.getUser());
+        desks = deskService.getDesks();
+//        this.prevScreen = prevScreen;
+
         showDesks();
 
         manageEvents();
@@ -46,9 +56,7 @@ public class DesksScreen {
         switch (scanner.nextLine()) {
             case "1":
             case "add desk":
-                System.out.println("Give the name to your desk");
-                String deskName = scanner.nextLine();
-                deskService.addNewDesk(deskName);
+                addDesk();
                 break;
             case "2":
             case "open":
@@ -56,13 +64,21 @@ public class DesksScreen {
                 break;
             case "3":
             case "quit":
-                LoginScreen loginScreen = new LoginScreen();
-                loginScreen.startLogging();
+                quit();
+                return;
             default:
                 System.out.println("please, enter correct value");
                 manageEvents();
                 break;
         }
+        manageEvents();
+    }
+
+    private void addDesk() {
+        System.out.println("Give the name to your desk");
+        String deskName = scanner.nextLine();
+        deskService.addNewDesk(deskName);
+        System.out.println("added new desk" + deskName);
     }
 
     //    посмотреть карточки из данного стола

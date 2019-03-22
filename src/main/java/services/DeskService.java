@@ -16,7 +16,7 @@ import java.util.Scanner;
 @Component
 public class DeskService {
 
-    private static User user;
+    private User user;
     private final DesksDao desksDao;
 
     @Autowired
@@ -24,8 +24,11 @@ public class DeskService {
         this.desksDao = desksDao;
     }
 
-    public List<Desk> getDesks(User user) {
-        DeskService.user = user;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Desk> getDesks() {
         List<Desk> userDesks = desksDao.findAllUserDesks(user);
         if (!userDesks.isEmpty()) {
             return userDesks;
@@ -35,16 +38,5 @@ public class DeskService {
 
     public void addNewDesk(String name) {
         desksDao.add(name, user);
-//        System.out.println("added new desk" + " " + name);
-//
-//        switch (scanner.nextLine()) {
-//            case "1":
-//            case "quit":
-//                desksScreen.openScreen(user);
-//                break;
-//            default:
-//                System.out.println("please, enter correct value");
-//                break;
-//        }
     }
 }

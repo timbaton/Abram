@@ -1,5 +1,7 @@
 package screens;
 
+import base.BaseAbstractClass;
+import base.BaseScreen;
 import dao.TasksDao;
 import models.Card;
 import models.Task;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class TasksScreen {
+public class TasksScreen extends BaseAbstractClass {
     private Scanner scanner;
     private List<Task> userTasks;
 
@@ -84,5 +86,20 @@ public class TasksScreen {
             }
         } else
             System.out.println("No tasks in this card!");
+    }
+
+    @Override
+    public void manageEvents() {
+
+    }
+
+    @Override
+    public void openScreen() {
+
+    }
+
+    @Override
+    public void quit() {
+
     }
 }

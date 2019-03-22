@@ -1,5 +1,7 @@
 package screens;
 
+import base.BaseAbstractClass;
+import base.BaseScreen;
 import dao.CardsDao;
 import models.Card;
 import models.Desk;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class CardsScreen {
+public class CardsScreen extends BaseAbstractClass {
 
     private Scanner scanner;
 
@@ -21,13 +23,17 @@ public class CardsScreen {
     private static List<Card> userCards;
     private final CardsService cardsService;
     private final TasksScreen tasksScreen;
+    private BaseScreen prefScreen;
 
     @Autowired
     public CardsScreen(ScannerFactory scannerFactory, CardsService cardsService, TasksScreen tasksScreen) {
+        tasksScreen.setPrefScreen(this);
+
         this.scanner = scannerFactory.getSystemIn();
         this.cardsService = cardsService;
         this.tasksScreen = tasksScreen;
     }
+
 
     public void openScreen() {
 //        userCards = cardsDao.findAllCardsFromDesk(desk.getName());
@@ -35,11 +41,12 @@ public class CardsScreen {
         manageEvents(desk);
     }
 
+
     public void setDesk(Desk desk) {
         this.desk = desk;
     }
 
-    public void showCards() {
+    private void showCards() {
 
         System.out.println("This desk has cards: ");
 
@@ -84,5 +91,20 @@ public class CardsScreen {
         }
         Card openingCard = userCards.get(Integer.valueOf(scanner.nextLine()) - 1);
         tasksScreen.openScreen(openingCard);
+    }
+
+    @Override
+    public void setPrefScreen(BaseScreen prefScreen) {
+        this.prefScreen = prefScreen;
+    }
+
+    @Override
+    public void quit() {
+        prefScreen.openScreen();
+    }
+
+    @Override
+    public void manageEvents() {
+
     }
 }

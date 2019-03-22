@@ -45,5 +45,6 @@
     <bean id="desksScreen" class="screens.DesksScreen"/>
     <bean id="cardsScreen" class="screens.CardsScreen"/>
     <bean id="tasksScreen" class="screens.TasksScreen"/>
+    <bean id="loginScreen" class="screens.LoginScreen"/>
 
 </beans>
