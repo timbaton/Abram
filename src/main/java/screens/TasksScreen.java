@@ -29,5 +29,23 @@ public class TasksScreen {
 
     public void openScreen(Card openingCard) {
         userTasks = tasksDao.findAllTasksFromCard(openingCard.getName());
+        showTasks();
+        manageEvents();
+    }
+
+    private void manageEvents() {
+        System.out.println("manage events");
+    }
+
+    private void showTasks() {
+        System.out.println("This card has tasks: ");
+        if (!userTasks.isEmpty()) {
+            int taskNumber = 0;
+            for (Task task : userTasks) {
+                taskNumber++;
+                System.out.println(taskNumber + ")" + task.getName());
+            }
+        } else
+            System.out.println("No tasks in this card!");
     }
 }
