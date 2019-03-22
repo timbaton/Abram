@@ -17,15 +17,11 @@ import java.util.Scanner;
 public class DeskService {
 
     private static User user;
-    private static Scanner scanner;
     private final DesksDao desksDao;
-    private final DesksScreen desksScreen;
 
     @Autowired
-    public DeskService(ScannerFactory scannerFactory, DesksDao desksDao, DesksScreen desksScreen) {
-        scanner = scannerFactory.getSystemIn();
+    public DeskService(DesksDao desksDao) {
         this.desksDao = desksDao;
-        this.desksScreen = desksScreen;
     }
 
     public List<Desk> getDesks(User user) {
@@ -39,16 +35,16 @@ public class DeskService {
 
     public void addNewDesk(String name) {
         desksDao.add(name, user);
-        System.out.println("added new desk" + " " + name);
-
-        switch (scanner.nextLine()) {
-            case "1":
-            case "quit":
-                desksScreen.openScreen(user);
-                break;
-            default:
-                System.out.println("please, enter correct value");
-                break;
-        }
+//        System.out.println("added new desk" + " " + name);
+//
+//        switch (scanner.nextLine()) {
+//            case "1":
+//            case "quit":
+//                desksScreen.openScreen(user);
+//                break;
+//            default:
+//                System.out.println("please, enter correct value");
+//                break;
+//        }
     }
 }

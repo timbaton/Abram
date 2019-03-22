@@ -18,12 +18,10 @@ public class TasksScreen {
 
     private final TasksDao tasksDao;
     private final TasksService tasksService;
-    private final CardsScreen cardsScreen;
 
     @Autowired
-    public TasksScreen(ScannerFactory scannerFactory, TasksDao tasksDao, TasksService tasksService, CardsScreen cardsScreen) {
+    public TasksScreen(ScannerFactory scannerFactory, TasksDao tasksDao, TasksService tasksService) {
         this.scanner = scannerFactory.getSystemIn();
-        this.cardsScreen = cardsScreen;
         this.tasksDao = tasksDao;
         this.tasksService = tasksService;
     }

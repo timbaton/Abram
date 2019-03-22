@@ -17,26 +17,26 @@ public class CardsScreen {
 
     private Scanner scanner;
 
+    private Desk desk;
     private static List<Card> userCards;
-    @Autowired
-    private CardsDao cardsDao;
-    @Autowired
-    private CardsService cardsService;
-    @Autowired
-    private DesksScreen desksScreen;
-    @Autowired
-    private TasksScreen tasksScreen;
+    private final CardsService cardsService;
+    private final TasksScreen tasksScreen;
 
     @Autowired
-    public CardsScreen(ScannerFactory scannerFactory, DesksScreen desksScreen) {
+    public CardsScreen(ScannerFactory scannerFactory, CardsService cardsService, TasksScreen tasksScreen) {
         this.scanner = scannerFactory.getSystemIn();
-        this.desksScreen = desksScreen;
+        this.cardsService = cardsService;
+        this.tasksScreen = tasksScreen;
     }
 
-    public void openScreen(Desk desk) {
-        userCards = cardsDao.findAllCardsFromDesk(desk.getName());
+    public void openScreen() {
+//        userCards = cardsDao.findAllCardsFromDesk(desk.getName());
         showCards();
         manageEvents(desk);
+    }
+
+    public void setDesk(Desk desk) {
+        this.desk = desk;
     }
 
     public void showCards() {
@@ -68,7 +68,7 @@ public class CardsScreen {
                 break;
             case "3":
             case "quit":
-                desksScreen.manageEvents();
+//                desksScreen.manageEvents();
 
             default:
                 System.out.println("Please, enter correct value");
