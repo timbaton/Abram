@@ -12,16 +12,17 @@ import java.util.Scanner;
 
 @Component
 public class DesksScreen {
+
     private Scanner scanner;
     private static List<Desk> desks;
-    @Autowired
-    private DeskService deskService;
-    @Autowired
-    private CardsScreen cardsScreen;
+    private final DeskService deskService;
+    private final CardsScreen cardsScreen;
 
     @Autowired
-    public DesksScreen(ScannerFactory scannerFactory) {
+    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService, CardsScreen cardsScreen) {
         scanner = scannerFactory.getSystemIn();
+        this.deskService = deskService;
+        this.cardsScreen = cardsScreen;
     }
 
     public void openScreen(User user) {
@@ -71,6 +72,8 @@ public class DesksScreen {
             System.out.println(i + 1 + ")" + desks.get(i).getName());
         }
         Desk openingDesk = desks.get(Integer.valueOf(scanner.nextLine()) - 1);
-        cardsScreen.openScreen(openingDesk);
+        cardsScreen.setDesk(openingDesk);
+
+        cardsScreen.openScreen();
     }
 }

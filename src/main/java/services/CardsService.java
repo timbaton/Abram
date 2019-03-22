@@ -4,23 +4,25 @@ import dao.CardsDao;
 import models.Card;
 import models.Desk;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import screens.CardsScreen;
 import utils.ScannerFactory;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class CardsService {
 
-    @Autowired
-    private CardsScreen cardsScreen;
-    @Autowired
-    private CardsDao cardsDao;
+    private final CardsScreen cardsScreen;
+    private final CardsDao cardsDao;
     private Scanner scanner;
 
     @Autowired
-    public CardsService(ScannerFactory scannerFactory) {
+    public CardsService(ScannerFactory scannerFactory, CardsDao cardsDao, CardsScreen cardsScreen) {
         this.scanner = scannerFactory.getSystemIn();
+        this.cardsDao = cardsDao;
+        this.cardsScreen = cardsScreen;
     }
 
     public void addNewCard(String cardName, Desk desk) {
@@ -30,7 +32,7 @@ public class CardsService {
             case "1":
             case "quit":
                 System.out.println("Returned to cards");
-                cardsScreen.openScreen(desk);
+                cardsScreen.openScreen();
                 break;
             default:
                 System.out.println("Please, enter correct value");
