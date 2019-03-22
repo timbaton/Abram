@@ -71,14 +71,14 @@ public class CardsScreen {
                 desksScreen.manageEvents();
 
             default:
-                System.out.println("please, enter correct value");
+                System.out.println("Please, enter correct value");
                 manageEvents(desk);
                 break;
         }
     }
 
     private void showCardsTasks() {
-        System.out.println("Choose the task name: ");
+        System.out.println("Choose the card name: ");
         for (int i = 0; i < userCards.size(); i++) {
             System.out.println(i + 1 + ")" + userCards.get(i).getName());
         }

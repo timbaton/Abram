@@ -25,7 +25,7 @@ public class CardsService {
 
     public void addNewCard(String cardName, Desk desk) {
         cardsDao.addCard(cardName, desk.getName());
-        System.out.println("added new card" + " " + cardName);
+        System.out.println("Added new card" + " " + cardName);
         switch (scanner.nextLine()) {
             case "1":
             case "quit":
@@ -33,7 +33,7 @@ public class CardsService {
                 cardsScreen.openScreen(desk);
                 break;
             default:
-                System.out.println("please, enter correct value");
+                System.out.println("Please, enter correct value");
                 break;
         }
 
