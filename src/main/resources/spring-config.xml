@@ -38,9 +38,11 @@
     <bean id="desksDao" class="dao.DesksDao"/>
     <bean id="usersDao" class="dao.UsersDao"/>
     <bean id="cardsDao" class="dao.CardsDao"/>
+    <bean id="tasksDao" class="dao.TasksDao"/>
 
     <!--Screens-->
     <bean id="desksScreen" class="screens.DesksScreen"/>
     <bean id="cardsScreen" class="screens.CardsScreen"/>
+    <bean id="tasksScreen" class="screens.TasksScreen"/>
 
 </beans>

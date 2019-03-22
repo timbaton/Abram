@@ -18,6 +18,8 @@ public class TasksDao implements SimpleDao {
     private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name, task.description\n" +
             "from task_to_user inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?";
     private final String SQL_SELECT_TASK_BY_NAME = "select * from task where name=?";
+    private final String SQL_SELECT_TASKS_FROM_CARD= "select task.id, task.card_id, task.description, task.name, task.user_id from task inner card on card.id = task.card_id\n" +
+            "where card.name = ?";
 
     public TasksDao() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
@@ -28,12 +30,10 @@ public class TasksDao implements SimpleDao {
         return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, user.getId());
     }
 
-   /* public List<Task> findAllTasksFromCard(String cardName) {
-        CardsDao cardsDao = new CardsDao();
-        Card card = cardsDao.find(cardName).get(0);
-        return jdbcTemplate.query(SQL_SELECT_TASKS_OF_USER, tasksRowMapper, card.getId());
+    public List<Task> findAllTasksFromCard(String cardName) {
+        return jdbcTemplate.query(SQL_SELECT_TASKS_FROM_CARD, tasksRowMapper, cardName);
     }
-*/
+
     private RowMapper<Task> tasksRowMapper = (resultSet, i) -> Task.builder()
             .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))

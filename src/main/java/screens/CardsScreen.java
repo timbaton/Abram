@@ -3,6 +3,7 @@ package screens;
 import dao.CardsDao;
 import models.Card;
 import models.Desk;
+import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import services.CardsService;
@@ -16,12 +17,15 @@ public class CardsScreen {
 
     private Scanner scanner;
 
+    private static List<Card> userCards;
     @Autowired
     private CardsDao cardsDao;
     @Autowired
     private CardsService cardsService;
     @Autowired
     private DesksScreen desksScreen;
+    @Autowired
+    private TasksScreen tasksScreen;
 
     @Autowired
     public CardsScreen(ScannerFactory scannerFactory, DesksScreen desksScreen) {
@@ -29,11 +33,18 @@ public class CardsScreen {
         this.desksScreen = desksScreen;
     }
 
-    public void openCards(Desk desk) {
+    public void openScreen(Desk desk) {
+        userCards = cardsDao.findAllCardsFromDesk(desk.getName());
+        showCards();
+        manageEvents(desk);
+    }
+
+    public void showCards() {
 
 //  посмотреть карточки из данного стола
-        List<Card> userCards = cardsDao.findAllCardsFromDesk(desk.getName());
-        System.out.println(desk.getName() + " " + "has cards: ");
+
+//        System.out.println(desk.getName() + " " + "has cards: ");
+        System.out.println("This desk has cards: ");
 
         if (!userCards.isEmpty()) {
             int cardNumber = 0;
@@ -43,21 +54,20 @@ public class CardsScreen {
             }
         } else
             System.out.println("No cards in this desk!");
-        manageEvents(desk.getName());
     }
 
-    private void manageEvents(String deskName) {
+    private void manageEvents(Desk desk) {
         System.out.println("What do you want to do?\n1)add card     2)open      3)exit");
         switch (scanner.nextLine()) {
             case "1":
             case "add card":
                 System.out.println("Give the name to your card");
                 String cardName = scanner.nextLine();
-                cardsService.addNewCard(cardName, deskName);
+                cardsService.addNewCard(cardName, desk);
                 break;
             case "2":
             case "open":
-//                showCardsTasks();
+                showCardsTasks();
                 break;
             case "3":
             case "quit":
@@ -65,8 +75,17 @@ public class CardsScreen {
 
             default:
                 System.out.println("please, enter correct value");
-                manageEvents(deskName);
+                manageEvents(desk);
                 break;
         }
+    }
+
+    private void showCardsTasks() {
+        System.out.println("Choose the task name: ");
+        for (int i = 0; i < userCards.size(); i++) {
+            System.out.println(i + 1 + ")" + userCards.get(i).getName());
+        }
+        Card openingCard = userCards.get(Integer.valueOf(scanner.nextLine()) - 1);
+        tasksScreen.openScreen(openingCard);
     }
 }

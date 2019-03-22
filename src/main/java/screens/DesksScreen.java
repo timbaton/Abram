@@ -66,11 +66,11 @@ public class DesksScreen {
 
     //    посмотреть карточки из данного стола
     private void showDeskCards() {
-        System.out.println("Выберете номер доски: ");
+        System.out.println("Choose the desk name: ");
         for (int i = 0; i < desks.size(); i++) {
             System.out.println(i + 1 + ")" + desks.get(i).getName());
         }
         Desk openingDesk = desks.get(Integer.valueOf(scanner.nextLine()) - 1);
-        cardsScreen.openCards(openingDesk);
+        cardsScreen.openScreen(openingDesk);
     }
 }
