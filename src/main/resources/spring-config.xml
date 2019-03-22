@@ -33,6 +33,7 @@
     <bean id="userService" class="services.UserService"/>
     <bean id="deskService" class="services.DeskService"/>
     <bean id="cardsService" class="services.CardsService"/>
+    <bean id="tasksService" class="services.TasksService"/>
 
     <!--DAO-->
     <bean id="desksDao" class="dao.DesksDao"/>
