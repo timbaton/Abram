@@ -13,13 +13,13 @@
 
     <context:component-scan base-package="utils"/>
     <!--utils-->
-    <!--<bean id="scannerFactory" class="utils.ScannerFactory"/>-->
+    <bean id="printer" class="utils.PrintManager"/>
 
     <bean name="dataSource" id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="username" value="postgres"/>
         <property name="password" value="postgres"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/abram"/>
+        <property name="url" value="jdbc:postgresql://localhost:7777/abram"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

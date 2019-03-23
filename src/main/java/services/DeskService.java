@@ -25,10 +25,10 @@ public class DeskService {
 
     public List<Desk> getDesks() {
         List<Desk> userDesks = desksDao.findAllUserDesks(user);
-        if (!userDesks.isEmpty()) {
+//        if (!userDesks.isEmpty()) {
             return userDesks;
-        }
-        return null;
+//        }
+//        return null;
     }
 
     public void addDesk(String name) {

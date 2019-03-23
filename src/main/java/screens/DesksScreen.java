@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import services.DeskService;
 import services.UserService;
+import utils.PrintManager;
 import utils.ScannerFactory;
 
 import java.util.List;
@@ -15,21 +16,22 @@ import java.util.Scanner;
 public class DesksScreen extends BaseAbstractClass {
 
     private Scanner scanner;
+    private PrintManager printManager;
+
     private static List<Desk> desks;
     private static DeskService deskService;
     private CardsScreen cardsScreen;
     private UserService userService;
 
     @Autowired
-    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService, CardsScreen cardsScreen, UserService userService) {
+    public DesksScreen(ScannerFactory scannerFactory, DeskService deskService, CardsScreen cardsScreen, UserService userService, PrintManager printManager) {
         scanner = scannerFactory.getSystemIn();
+        this.printManager = printManager;
 
         cardsScreen.setPrefScreen(this);
-
         this.deskService = deskService;
         this.userService = userService;
         this.cardsScreen = cardsScreen;
-
     }
 
     public void openScreen() {
@@ -41,7 +43,7 @@ public class DesksScreen extends BaseAbstractClass {
     }
 
     private void showDesks() {
-        System.out.println("Your desks: ");
+        printManager.printInNewScreen("Your desks: ");
         int deskNumber = 0;
         for (Desk desk : desks) {
             deskNumber++;
@@ -50,7 +52,8 @@ public class DesksScreen extends BaseAbstractClass {
     }
 
     public void manageEvents() {
-        System.out.println("What do you want to do?\n1)add desk     2)open      3)exit");
+        printManager.print("What do you want to do?\n1)add desk     2)open      3)exit");
+        System.out.print("answer: ");
         switch (scanner.nextLine()) {
             case "1":
             case "add desk":

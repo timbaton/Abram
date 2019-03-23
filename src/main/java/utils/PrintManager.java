@@ -9,7 +9,7 @@ public class PrintManager {
     }
 
     public void printInNewScreen(String text) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             System.out.println();
         }
         printInAFrame(text);
@@ -68,5 +68,6 @@ public class PrintManager {
         for (int i = 0; i < BORDER_SIZE; i++) {
             System.out.print("-");
         }
+        System.out.println();
     }
 }
