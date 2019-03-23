@@ -21,14 +21,8 @@ public class TasksDao implements BaseDao {
             "from task_to_user inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?";
     private final String SQL_SELECT_TASK_BY_NAME = "select * from task where name=?";
     private final String SQL_SELECT_TASKS_FROM_CARD = "select task.id, task.name, task.description, task.card_id\n" +
-            "from task\n" +
-            "       inner join (select tu.task_id from task_to_card tu\n" +
-            "                                            inner join card c on tu.card_id = c.id where c.name = ?) as t\n" +
-            "         on task.id = t.task_id;";
-    private final String SQL_INSERT_TASK_INTO_CARD = "with ins1 as (insert into task (description, card_id, name) VALUES (?, ?, ?)\n" +
-            "returning id, card_id)\n" +
-            "insert into task_to_card (task_id, card_id)\n" +
-            "values ((select id from ins1), (select ins1.card_id from ins1))";
+            "from task inner join card on task.card_id = card.id where card.name = ?";
+    private final String SQL_INSERT_TASK_INTO_CARD = "insert into task(description,card_id, name) values (?,?,?)";
 
     @Autowired
     public TasksDao(JdbcTemplate jdbcTemplate) {
