@@ -75,7 +75,7 @@ public class DesksScreen extends BaseAbstractClass {
     private void addDesk() {
         System.out.println("Give the name to your desk");
         String deskName = scanner.nextLine();
-        deskService.addNewDesk(deskName);
+        deskService.addDesk(deskName);
         System.out.println("added new desk" + deskName);
     }
 

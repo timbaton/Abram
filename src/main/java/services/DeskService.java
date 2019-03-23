@@ -31,7 +31,7 @@ public class DeskService {
         return null;
     }
 
-    public void addNewDesk(String name) {
+    public void addDesk(String name) {
         desksDao.add(name, user);
     }
 }

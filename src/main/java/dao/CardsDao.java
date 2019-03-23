@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-public class CardsDao implements SimpleDao {
+public class CardsDao implements BaseDao {
 
     @Autowired
     private DesksDao desksDao;
