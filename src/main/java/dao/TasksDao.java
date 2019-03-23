@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Component
+@Repository
 public class TasksDao implements BaseDao {
 
     private JdbcTemplate jdbcTemplate;
@@ -63,6 +65,6 @@ public class TasksDao implements BaseDao {
     }
 
     public void addTask(String taskName, String taskDescription, Card card) {
-        jdbcTemplate.update(SQL_INSERT_TASK_INTO_CARD, taskName, taskDescription, card.getId());
+        jdbcTemplate.update(SQL_INSERT_TASK_INTO_CARD, taskDescription, card.getId(), taskName);
     }
 }

@@ -1,5 +1,8 @@
 package utils;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PrintManager {
     private final int BORDER_SIZE = 40;
 

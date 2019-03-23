@@ -6,20 +6,16 @@
 
     <context:annotation-config/>
 
-<!--    <context:component-scan base-package="services"/>
+    <context:component-scan base-package="services"/>
     <context:component-scan base-package="dao"/>
-    <context:component-scan base-package="screens"/>-->
-
-
+    <context:component-scan base-package="screens"/>
     <context:component-scan base-package="utils"/>
-    <!--utils-->
-    <bean id="printer" class="utils.PrintManager"/>
 
     <bean name="dataSource" id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="username" value="postgres"/>
         <property name="password" value="postgres"/>
-        <property name="url" value="jdbc:postgresql://localhost:7777/abram"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/abram"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -30,21 +26,23 @@
 
 
     <!--Services-->
-    <bean id="userService" class="services.UserService"/>
-    <bean id="deskService" class="services.DeskService"/>
-    <bean id="cardsService" class="services.CardsService"/>
-    <bean id="tasksService" class="services.TasksService"/>
+    <!-- <bean id="userService" class="services.UserService"/>
+     <bean id="deskService" class="services.DeskService"/>
+     <bean id="cardsService" class="services.CardsService"/>
+     <bean id="tasksService" class="services.TasksService"/>-->
 
     <!--DAO-->
-    <bean id="desksDao" class="dao.DesksDao"/>
-    <bean id="usersDao" class="dao.UsersDao"/>
-    <bean id="cardsDao" class="dao.CardsDao"/>
-    <bean id="tasksDao" class="dao.TasksDao"/>
+    <!--    <bean id="desksDao" class="dao.DesksDao"/>
+        <bean id="usersDao" class="dao.UsersDao"/>
+        <bean id="cardsDao" class="dao.CardsDao"/>
+        <bean id="tasksDao" class="dao.TasksDao"/>-->
 
     <!--Screens-->
-    <bean id="desksScreen" class="screens.DesksScreen"/>
+   <!-- <bean id="desksScreen" class="screens.DesksScreen"/>
     <bean id="cardsScreen" class="screens.CardsScreen"/>
     <bean id="tasksScreen" class="screens.TasksScreen"/>
     <bean id="loginScreen" class="screens.LoginScreen"/>
-
+-->
+    <!--utils-->
+    <!--<bean id="printer" class="utils.PrintManager"/>-->
 </beans>

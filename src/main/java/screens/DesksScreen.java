@@ -79,7 +79,7 @@ public class DesksScreen extends BaseAbstractClass {
         System.out.println("Give the name to your desk");
         String deskName = scanner.nextLine();
         deskService.addDesk(deskName);
-        System.out.println("Added new desk" + deskName);
+        System.out.println("Added new desk" + " " + "-" + " " + deskName);
     }
 
     //    посмотреть карточки из данного стола
