@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class DesksDao implements SimpleDao {
+public class DesksDao implements BaseDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final Connection connection;

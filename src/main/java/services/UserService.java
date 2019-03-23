@@ -49,6 +49,7 @@ public class UserService {
     }
 
     //метод для того, чтобы получить текущего пользователя
+
     public User getUser() {
         return curUser;
     }

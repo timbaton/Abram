@@ -11,15 +11,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class TasksDao implements SimpleDao {
+public class TasksDao implements BaseDao {
 
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_TASKS_OF_USER = "select task.id, task.name, task.description\n" +
             "from task_to_user inner join task on task_to_user.user_id = task.user_id where task_to_user.user_id = ?";
     private final String SQL_SELECT_TASK_BY_NAME = "select * from task where name=?";
-    private final String SQL_SELECT_TASKS_FROM_CARD = "select task.id, task.card_id, task.description, task.name, task.user_id\n" +
-            "from task inner join card on card.id = task.card_id  where card.name = ?";
+    private final String SQL_SELECT_TASKS_FROM_CARD = "select task.id, task.name, task.description, task.card_id\n" +
+            "from task\n" +
+            "       inner join (select tu.task_id from task_to_card tu\n" +
+            "                                            inner join card c on tu.card_id = c.id where c.name = ?) as t\n" +
+            "         on task.id = t.task_id;";
     private final String SQL_INSERT_TASK_INTO_CARD = "insert into task(name,description, card_id, user_id) values (?,?,?)";
 
     @Autowired
