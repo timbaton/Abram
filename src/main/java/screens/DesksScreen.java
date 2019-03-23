@@ -86,7 +86,7 @@ public class DesksScreen extends BaseAbstractClass {
             System.out.println(i + 1 + ")" + desks.get(i).getName());
         }
         int index = Integer.valueOf(scanner.nextLine()) - 1;
-        if (index <= desks.size()) {
+        if (index < desks.size()) {
             Desk openingDesk = desks.get(index);
             cardsScreen.setDesk(openingDesk);
             cardsScreen.openScreen();

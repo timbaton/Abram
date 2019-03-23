@@ -67,7 +67,7 @@ public class TasksScreen extends BaseAbstractClass {
             System.out.println(i + 1 + ")" + userTasks.get(i).getName());
         }
         int index = Integer.valueOf(scanner.nextLine()) - 1;
-        if (index <= userTasks.size()) {
+        if (index < userTasks.size()) {
             Task openingTask = userTasks.get(index);
             for (Task task : userTasks) {
                 if (openingTask.getName().equals(task.getName())) {

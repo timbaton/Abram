@@ -92,7 +92,7 @@ public class CardsScreen extends BaseAbstractClass {
             System.out.println(i + 1 + ")" + userCards.get(i).getName());
         }
         int index = Integer.valueOf(scanner.nextLine()) - 1;
-        if (index <= userCards.size()) {
+        if (index < userCards.size()) {
             Card openingCard = userCards.get(index);
             tasksScreen.setCard(openingCard);
             tasksScreen.openScreen();
