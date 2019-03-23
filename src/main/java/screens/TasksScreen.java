@@ -1,6 +1,7 @@
 package screens;
 
 import base.BaseAbstractClass;
+import base.BaseScreen;
 import dao.TasksDao;
 import models.Card;
 import models.Task;
@@ -19,7 +20,7 @@ public class TasksScreen extends BaseAbstractClass {
 
     private final TasksDao tasksDao;
     private final TasksService tasksService;
-
+    private BaseScreen prefScreen;
     private Card curCard;
 
 
@@ -70,16 +71,13 @@ public class TasksScreen extends BaseAbstractClass {
         if (index < userTasks.size()) {
             Task openingTask = userTasks.get(index);
             for (Task task : userTasks) {
-                if (openingTask.getName().equals(task.getName())) {
-                    String description = tasksService.findTaskByName(openingTask.getName()).getDescription();
-                    System.out.println(task.getName() + ":" + " " + description);
-                } else {
-                    System.out.println("Please, enter correct value");
-                    showTaskDescription();
-                }
+                String description = tasksService.findTaskByName(openingTask.getName()).getDescription();
+                System.out.println(task.getName() + ":" + " " + description);
             }
-        } else
+        } else {
             System.out.println("Please, enter correct value");
+            showTaskDescription();
+        }
     }
 
     private void showTasks() {
@@ -96,7 +94,7 @@ public class TasksScreen extends BaseAbstractClass {
 
     @Override
     public void quit() {
-
+        prefScreen.openScreen();
     }
 
     public void setCard(Card card) {

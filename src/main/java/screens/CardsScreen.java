@@ -96,8 +96,10 @@ public class CardsScreen extends BaseAbstractClass {
             Card openingCard = userCards.get(index);
             tasksScreen.setCard(openingCard);
             tasksScreen.openScreen();
-        } else
+        } else {
             System.out.println("Please, enter correct value");
+            openCardsTasks();
+        }
     }
 
     @Override
