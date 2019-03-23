@@ -66,16 +66,20 @@ public class TasksScreen extends BaseAbstractClass {
         for (int i = 0; i < userTasks.size(); i++) {
             System.out.println(i + 1 + ")" + userTasks.get(i).getName());
         }
-        Task openingTask = userTasks.get(Integer.valueOf(scanner.nextLine()) - 1);
-        for (Task task : userTasks) {
-            if (openingTask.getName().equals(task.getName())) {
-                String description = tasksService.findTaskByName(openingTask.getName()).getDescription();
-                System.out.println(task.getName() + ":" + " " + description);
-            } else {
-                System.out.println("Please, enter correct value");
-                showTaskDescription();
+        int index = Integer.valueOf(scanner.nextLine()) - 1;
+        if (index <= userTasks.size()) {
+            Task openingTask = userTasks.get(index);
+            for (Task task : userTasks) {
+                if (openingTask.getName().equals(task.getName())) {
+                    String description = tasksService.findTaskByName(openingTask.getName()).getDescription();
+                    System.out.println(task.getName() + ":" + " " + description);
+                } else {
+                    System.out.println("Please, enter correct value");
+                    showTaskDescription();
+                }
             }
-        }
+        } else
+            System.out.println("Please, enter correct value");
     }
 
     private void showTasks() {

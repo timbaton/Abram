@@ -20,8 +20,8 @@ public class TasksDao implements BaseDao {
     private final String SQL_SELECT_TASK_BY_NAME = "select * from task where name=?";
     private final String SQL_SELECT_TASKS_FROM_CARD = "select task.id, task.name, task.description, task.card_id\n" +
             "from task\n" +
-            "       inner join (select tu.task_id from task_to_user tu\n" +
-            "                                            inner join \"user\" u on tu.user_id = u.id where u.id = ?) as t\n" +
+            "       inner join (select tu.task_id from task_to_card tu\n" +
+            "                                            inner join card c on tu.card_id = c.id where c.name = ?) as t\n" +
             "         on task.id = t.task_id;";
     private final String SQL_INSERT_TASK_INTO_CARD = "insert into task(name,description, card_id, user_id) values (?,?,?)";
 

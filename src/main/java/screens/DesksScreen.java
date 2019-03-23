@@ -65,7 +65,7 @@ public class DesksScreen extends BaseAbstractClass {
                 quit();
                 return;
             default:
-                System.out.println("please, enter correct value");
+                System.out.println("Please, enter correct value");
                 manageEvents();
                 break;
         }
@@ -76,7 +76,7 @@ public class DesksScreen extends BaseAbstractClass {
         System.out.println("Give the name to your desk");
         String deskName = scanner.nextLine();
         deskService.addDesk(deskName);
-        System.out.println("added new desk" + deskName);
+        System.out.println("Added new desk" + deskName);
     }
 
     //    посмотреть карточки из данного стола
@@ -85,9 +85,12 @@ public class DesksScreen extends BaseAbstractClass {
         for (int i = 0; i < desks.size(); i++) {
             System.out.println(i + 1 + ")" + desks.get(i).getName());
         }
-        Desk openingDesk = desks.get(Integer.valueOf(scanner.nextLine()) - 1);
-        cardsScreen.setDesk(openingDesk);
-
-        cardsScreen.openScreen();
+        int index = Integer.valueOf(scanner.nextLine()) - 1;
+        if (index <= desks.size()) {
+            Desk openingDesk = desks.get(index);
+            cardsScreen.setDesk(openingDesk);
+            cardsScreen.openScreen();
+        } else
+            System.out.println("Please, enter correct value");
     }
 }
