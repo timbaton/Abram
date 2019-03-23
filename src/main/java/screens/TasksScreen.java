@@ -52,6 +52,7 @@ public class TasksScreen extends BaseAbstractClass {
             case "3":
             case "exit":
                 quit();
+                break;
             default:
                 printManager.printInNewScreen("Please, enter correct value");
                 manageEvents();

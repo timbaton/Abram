@@ -12,7 +12,7 @@ public class Main {
 //        RegisterScreen registerScreen =  context.getBean(RegisterScreen.class);
 //        registerScreen.registerUser();
 
-//        LoginScreen loginScreen = context.getBean(LoginScreen.class);
-//        loginScreen.startLogging();
+        LoginScreen loginScreen = context.getBean(LoginScreen.class);
+        loginScreen.startLogging();
     }
 }

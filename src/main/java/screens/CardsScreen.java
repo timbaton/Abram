@@ -61,6 +61,7 @@ public class CardsScreen extends BaseAbstractClass {
             case "3":
             case "quit":
                 quit();
+                break;
             default:
                 System.out.println("Please, enter correct value");
                 manageEvents();
