@@ -54,7 +54,7 @@ public class TasksDao implements BaseDao {
     }
 
     @Override
-    public void add(String name, User user) {
+    public void add(Object object) {
 
     }
 

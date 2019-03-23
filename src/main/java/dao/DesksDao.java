@@ -58,6 +58,10 @@ public class DesksDao implements BaseDao {
     }
 
     @Override
+    public void add(Object object) {
+
+    }
+
     public void add(String name, User user) {
         try {
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT_NEW_DESK);

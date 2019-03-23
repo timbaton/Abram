@@ -55,8 +55,10 @@ public class CardsDao implements BaseDao {
     }
 
     @Override
-    public void add(String name, User user) {
+    public void add(Object object) {
+
     }
+
 
     public void addCard(String name, Desk desk) {
         try {
