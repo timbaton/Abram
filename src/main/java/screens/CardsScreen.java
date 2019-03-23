@@ -7,6 +7,7 @@ import models.Desk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import services.CardsService;
+import utils.PrintManager;
 import utils.ScannerFactory;
 
 import java.util.List;
@@ -22,14 +23,16 @@ public class CardsScreen extends BaseAbstractClass {
     private final CardsService cardsService;
     private final TasksScreen tasksScreen;
     private BaseScreen prefScreen;
+    private PrintManager printManager;
 
     @Autowired
-    public CardsScreen(ScannerFactory scannerFactory, CardsService cardsService, TasksScreen tasksScreen) {
+    public CardsScreen(ScannerFactory scannerFactory, CardsService cardsService, TasksScreen tasksScreen, PrintManager printManager) {
         tasksScreen.setPrefScreen(this);
 
         this.scanner = scannerFactory.getSystemIn();
         this.cardsService = cardsService;
         this.tasksScreen = tasksScreen;
+        this.printManager = printManager;
     }
 
     public void openScreen() {
@@ -45,7 +48,7 @@ public class CardsScreen extends BaseAbstractClass {
     public void manageEvents() {
         showCards();
 
-        System.out.println("What do you want to do?\n1)add card     2)open      3)exit");
+        printManager.print("What do you want to do?\n1)add card     2)open      3)exit");
         switch (scanner.nextLine()) {
             case "1":
             case "add card":
@@ -66,39 +69,47 @@ public class CardsScreen extends BaseAbstractClass {
     }
 
     private void showCards() {
+        StringBuilder allCards = new StringBuilder();
         if (!userCards.isEmpty()) {
-            System.out.println("This desk has cards: ");
-
-            int cardNumber = 0;
-            for (Card card : userCards) {
-                cardNumber++;
-                System.out.println(cardNumber + ")" + card.getName());
+            allCards.append("This desk has cards:\n");
+            for (int i = 0; i < userCards.size(); i++) {
+                allCards.append(i + 1).append(")").append(userCards.get(i).getName());
             }
+
         } else
-            System.out.println("No cards in this desk!");
+            allCards.append("No cards in this desk!");
+        printManager.printInNewScreen(allCards.toString());
     }
 
     private void addCard() {
-        System.out.println("Give the name to your card");
+        printManager.printInNewScreen("Give the name to your card");
         String cardName = scanner.nextLine();
         cardsService.addNewCard(cardName, desk);
-        System.out.println("Added new card" + " " + cardName);
+        printManager.printInNewScreen("Added new card" + " " + cardName);
         manageEvents();
     }
 
     private void openCardsTasks() {
-        System.out.println("Choose the card name: ");
-        for (int i = 0; i < userCards.size(); i++) {
-            System.out.println(i + 1 + ")" + userCards.get(i).getName());
-        }
-        int index = Integer.valueOf(scanner.nextLine()) - 1;
-        if (index < userCards.size()) {
-            Card openingCard = userCards.get(index);
-            tasksScreen.setCard(openingCard);
-            tasksScreen.openScreen();
-        } else {
-            System.out.println("Please, enter correct value");
-            openCardsTasks();
+        StringBuilder allCards = new StringBuilder();
+        printManager.printInNewScreen("Choose the card name: ");
+        if (!userCards.isEmpty()) {
+            allCards.append("This desk has cards:\n");
+
+            for (int i = 0; i < userCards.size(); i++) {
+                allCards.append(i + 1).append(")").append(userCards.get(i).getName());
+            }
+            printManager.print(allCards.toString());
+
+            int index = Integer.valueOf(scanner.nextLine()) - 1;
+            if (index < userCards.size()) {
+                Card openingCard = userCards.get(index);
+                tasksScreen.setCard(openingCard);
+                tasksScreen.setPrefScreen(this);
+                tasksScreen.openScreen();
+            } else {
+                printManager.printInNewScreen("Please, enter correct value");
+                openCardsTasks();
+            }
         }
     }
 

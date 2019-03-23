@@ -50,7 +50,10 @@ public class PrintManager {
                 charPosition++;
             }
 
-            System.out.print(textChar[charPosition]);
+            if (charPosition < textChar.length) {
+                System.out.print(textChar[charPosition]);
+            }
+
             int i1 = (charPosition - unCountedChars - newLinesCount + 1) % (BORDER_SIZE);
             if ((i1 == 0 && charPosition != unCountedChars + newLinesCount - 1)) {
                 System.out.print("|\n|");

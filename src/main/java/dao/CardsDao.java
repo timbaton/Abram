@@ -20,12 +20,8 @@ import java.util.List;
 @Repository
 public class CardsDao implements BaseDao {
 
-    @Autowired
-    private DesksDao desksDao;
-    @Autowired
-    private Connection connection;
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final Connection connection;
+    private final JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_CARDS_FROM_DESK = "select card.id, card.name, card.date_of_creation from card " +
             "inner join desk on card.desk_id = desk.id where desk.name = ?";
@@ -33,8 +29,9 @@ public class CardsDao implements BaseDao {
     private final String SQL_INSERT_CARD_INTO_DESK = "insert into card(date_of_creation, name, desk_id) VALUES(?,?,?)";
 
     @Autowired
-    public CardsDao(JdbcTemplate jdbcTemplate) {
+    public CardsDao(Connection connection, JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.connection = connection;
     }
 
     public List<Card> findAllCardsFromDesk(String deskName) {
