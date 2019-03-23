@@ -13,11 +13,12 @@ import java.util.List;
 @Repository
 public class UsersDao implements BaseDao {
 
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_ALL = "SELECT * FROM \"user\"";
     private final String SQL_SELECT_USER_BY_NAME = "SELECT * FROM \"user\" WHERE name= ?";
     private final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM \"user\" WHERE login= ?";
+    private final String SQL_INSERT_USER = "insert into \"user\"(login, password) values(?,?)";
 
     @Autowired
     public UsersDao(JdbcTemplate jdbcTemplate) {
@@ -36,8 +37,9 @@ public class UsersDao implements BaseDao {
     }
 
     @Override
-    public void add(String name, User user) {
-
+    public void add(Object object) {
+        User user = (User) object;
+        jdbcTemplate.update(SQL_INSERT_USER, user.getLogin(), user.getPassword());
     }
 
     public List<User> findByLogin(String login) {

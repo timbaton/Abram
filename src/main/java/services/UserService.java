@@ -54,6 +54,13 @@ public class UserService {
         return curUser;
     }
 
+    public void registerNewUser(String login, String password) {
+        User newUser = new User();
+        newUser.setLogin(login);
+        newUser.setPassword(password);
+        usersDao.add(newUser);
+    }
+
 //    private void showTaskDescription(List<Task> userTasks) {
 //
 ////  посмотреть описание таска

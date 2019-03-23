@@ -10,5 +10,5 @@ import java.util.List;
 public interface BaseDao<T> {
     List<T> findAll();
     T find(String name);
-    void add(String name, User user);
+    void add(Object object);
 }
