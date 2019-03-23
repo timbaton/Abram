@@ -36,4 +36,9 @@ public class CardsService {
 //        }
 
     }
+
+    public List<Card> getCards(Desk desk) {
+        List<Card> allCardsFromDesk = cardsDao.findAllCardsFromDesk(desk.getName());
+        return allCardsFromDesk;
+    }
 }

@@ -35,10 +35,8 @@ public class DesksScreen extends BaseAbstractClass {
     public void openScreen() {
         deskService.setUser(userService.getUser());
         desks = deskService.getDesks();
-//        this.prevScreen = prevScreen;
 
         showDesks();
-
         manageEvents();
     }
 
@@ -60,7 +58,7 @@ public class DesksScreen extends BaseAbstractClass {
                 break;
             case "2":
             case "open":
-                showDeskCards();
+                openCard();
                 break;
             case "3":
             case "quit":
@@ -82,7 +80,7 @@ public class DesksScreen extends BaseAbstractClass {
     }
 
     //    посмотреть карточки из данного стола
-    private void showDeskCards() {
+    private void openCard() {
         System.out.println("Choose the desk name: ");
         for (int i = 0; i < desks.size(); i++) {
             System.out.println(i + 1 + ")" + desks.get(i).getName());

@@ -36,7 +36,7 @@ public class CardsScreen extends BaseAbstractClass {
 
 
     public void openScreen() {
-//        userCards = cardsDao.findAllCardsFromDesk(desk.getName());
+        userCards = cardsService.getCards(desk);
         showCards();
         manageEvents(desk);
     }
