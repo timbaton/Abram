@@ -70,28 +70,33 @@ public class TasksScreen extends BaseAbstractClass {
     }
 
     private void showTaskDescription() {
-        printManager.printInNewScreen("Choose the task name: ");
+        if (userTasks.size() > 0) {
+            printManager.printInNewScreen("Choose the task name: ");
 
-        StringBuilder tasksList = new StringBuilder();
-        for (int i = 0; i < userTasks.size(); i++) {
-            tasksList.append(i + 1).append(")").append(userTasks.get(i).getName());
-            if (i != userTasks.size() - 1) {
-                tasksList.append("\n");
+            StringBuilder tasksList = new StringBuilder();
+            for (int i = 0; i < userTasks.size(); i++) {
+                tasksList.append(i + 1).append(")").append(userTasks.get(i).getName());
+                if (i != userTasks.size() - 1) {
+                    tasksList.append("\n");
+                }
             }
-        }
-        printManager.print(tasksList.toString());
+            printManager.print(tasksList.toString());
 
-        int index = Integer.valueOf(scanner.nextLine()) - 1;
-        if (index < userTasks.size()) {
-            Task openingTask = userTasks.get(index);
-            for (Task task : userTasks) {
-                String description = tasksService.findTaskByName(openingTask.getName()).getDescription();
-                printManager.print(task.getName() + ":" + " " + description);
+            int index = Integer.valueOf(scanner.nextLine()) - 1;
+            if (index < userTasks.size()) {
+                Task openingTask = userTasks.get(index);
+                for (Task task : userTasks) {
+                    String description = tasksService.findTaskByName(openingTask.getName()).getDescription();
+                    printManager.print(task.getName() + ":" + " " + description);
+                }
+            } else {
+                printManager.print("Please, enter correct value");
+                showTaskDescription();
             }
         } else {
-            printManager.print("Please, enter correct value");
-            showTaskDescription();
+            printManager.printInNewScreen("No tasks in the card!");
         }
+        manageEvents();
     }
 
     private void showTasks() {
@@ -106,7 +111,7 @@ public class TasksScreen extends BaseAbstractClass {
             }
         } else tasksList.append("No tasks in the card!");
 
-        printManager.print(tasksList.toString());
+        printManager.printInNewScreen(tasksList.toString());
     }
 
     void setCard(Card card) {

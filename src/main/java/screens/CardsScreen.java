@@ -74,10 +74,14 @@ public class CardsScreen extends BaseAbstractClass {
             allCards.append("This desk has cards:\n");
             for (int i = 0; i < userCards.size(); i++) {
                 allCards.append(i + 1).append(")").append(userCards.get(i).getName());
+                if (i != userCards.size() - 1) {
+                    allCards.append("\n");
+                }
             }
 
-        } else
+        } else {
             allCards.append("No cards in this desk!");
+        }
         printManager.printInNewScreen(allCards.toString());
     }
 
@@ -92,11 +96,15 @@ public class CardsScreen extends BaseAbstractClass {
     private void openCardsTasks() {
         StringBuilder allCards = new StringBuilder();
         printManager.printInNewScreen("Choose the card name: ");
+
         if (!userCards.isEmpty()) {
             allCards.append("This desk has cards:\n");
 
             for (int i = 0; i < userCards.size(); i++) {
                 allCards.append(i + 1).append(")").append(userCards.get(i).getName());
+                if (i != userCards.size() - 1) {
+                    allCards.append("\n");
+                }
             }
             printManager.print(allCards.toString());
 

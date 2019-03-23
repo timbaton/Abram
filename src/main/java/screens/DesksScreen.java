@@ -44,12 +44,20 @@ public class DesksScreen extends BaseAbstractClass {
     }
 
     private void showDesks() {
-        printManager.printInNewScreen("Your desks: ");
-        int deskNumber = 0;
-        for (Desk desk : desks) {
-            deskNumber++;
-            System.out.println(deskNumber + ")" + desk.getName());
-        }
+        StringBuilder desksList = new StringBuilder();
+
+        if (desks.size() != 0) {
+            printManager.printInNewScreen("Your desks: ");
+
+            for (int i = 0; i < desks.size(); i++) {
+                desksList.append(i + 1).append(")").append(desks.get(i).getName());
+                if (i != desks.size() - 1) {
+                    desksList.append("\n");
+                }
+            }
+        } else desksList.append("You don't have any desks!");
+
+        printManager.print(desksList.toString());
     }
 
     public void manageEvents() {
@@ -69,7 +77,7 @@ public class DesksScreen extends BaseAbstractClass {
                 quit();
                 break;
             default:
-                System.out.println("Please, enter correct value");
+                printManager.printInNewScreen("Please, enter correct value");
                 manageEvents();
                 break;
         }
@@ -98,7 +106,7 @@ public class DesksScreen extends BaseAbstractClass {
 
         printManager.print(desksList.toString());
 
-        int index = Integer.valueOf(scanner.nextLine()) - 1;
+        int index = scanner.nextInt() - 1;
         if (index < desks.size()) {
             Desk openingDesk = desks.get(index);
             cardsScreen.setDesk(openingDesk);
