@@ -2,19 +2,16 @@ package dao;
 
 import models.Card;
 import models.Desk;
-import models.Task;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -58,16 +55,15 @@ public class CardsDao implements SimpleDao {
     }
 
     @Override
-    public void add(String name, User user){}
+    public void add(String name, User user) {
+    }
 
-    public void addCard(String name, String deskName) {
+    public void addCard(String name, Desk desk) {
         try {
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT_CARD_INTO_DESK);
-            Date date = new Date();
-            ps.setString(1,String.valueOf(date));
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(2, name);
-            Desk desk = desksDao.find(deskName).get(0);
-            ps.setInt(3, Math.toIntExact(desk.getId()));
+            ps.setInt(3, desk.getId());
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

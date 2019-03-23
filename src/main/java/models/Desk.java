@@ -11,10 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Desk {
-    private Long id;
+    private int id;
     private String dataOfCreation;
     private String name;
-    private Long creator;
+    private int creator;
 
     // в бд нет такого, у каждого пользователя есть ссылка на стол
     private List<User> users;

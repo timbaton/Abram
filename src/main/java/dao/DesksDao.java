@@ -38,10 +38,10 @@ public class DesksDao implements SimpleDao {
     }
 
     private RowMapper<Desk> deskRowMapper = (resultSet, i) -> Desk.builder()
-            .id(resultSet.getLong("id"))
+            .id(resultSet.getInt("id"))
             .name(resultSet.getString("name"))
             .dataOfCreation(resultSet.getString("date_of_creation"))
-            .creator(resultSet.getLong("creator"))
+            .creator(resultSet.getInt("creator"))
             .build();
 
     @Override

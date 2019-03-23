@@ -1,7 +1,6 @@
 package screens;
 
 import base.BaseAbstractClass;
-import base.BaseScreen;
 import dao.TasksDao;
 import models.Card;
 import models.Task;
@@ -21,6 +20,9 @@ public class TasksScreen extends BaseAbstractClass {
     private final TasksDao tasksDao;
     private final TasksService tasksService;
 
+    private Card curCard;
+
+
     @Autowired
     public TasksScreen(ScannerFactory scannerFactory, TasksDao tasksDao, TasksService tasksService) {
         this.scanner = scannerFactory.getSystemIn();
@@ -28,13 +30,13 @@ public class TasksScreen extends BaseAbstractClass {
         this.tasksService = tasksService;
     }
 
-    public void openScreen(Card openingCard) {
-        userTasks = tasksDao.findAllTasksFromCard(openingCard.getName());
+    public void openScreen() {
+        userTasks = tasksDao.findAllTasksFromCard(curCard.getName());
         showTasks();
-        manageEvents(openingCard);
+        manageEvents();
     }
 
-    private void manageEvents(Card card) {
+    public void manageEvents() {
         System.out.println("What do you want to do?\n 1)add task    2)open      3)exit");
         switch (scanner.nextLine()) {
             case "1":
@@ -43,7 +45,7 @@ public class TasksScreen extends BaseAbstractClass {
                 String taskName = scanner.nextLine();
                 System.out.println("Give the description to your task");
                 String taskDescription = scanner.nextLine();
-                tasksService.addNewTask(taskName, taskDescription, card);
+                tasksService.addNewTask(taskName, taskDescription, curCard);
             case "2":
             case "open":
                 showTaskDescription();
@@ -54,7 +56,7 @@ public class TasksScreen extends BaseAbstractClass {
                 System.out.println("exit");
             default:
                 System.out.println("Please, enter correct value");
-                manageEvents(card);
+                manageEvents();
                 break;
         }
     }
@@ -89,17 +91,11 @@ public class TasksScreen extends BaseAbstractClass {
     }
 
     @Override
-    public void manageEvents() {
-
-    }
-
-    @Override
-    public void openScreen() {
-
-    }
-
-    @Override
     public void quit() {
 
+    }
+
+    public void setCard(Card card) {
+        curCard = card;
     }
 }
