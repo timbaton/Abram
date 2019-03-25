@@ -13,6 +13,6 @@ public class Main {
 //        registerScreen.registerUser();
 
         LoginScreen loginScreen = context.getBean(LoginScreen.class);
-        loginScreen.startLogging();
+        loginScreen.manageEvents();
     }
 }

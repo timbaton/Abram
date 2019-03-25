@@ -21,6 +21,9 @@ public class LoginScreen implements BaseScreen {
     private PrintManager printManager;
 
     @Autowired
+    private RegisterScreen registerScreen;
+
+    @Autowired
     public LoginScreen(UserService userService, ScannerFactory scannerFactory, DesksScreen desksScreen, PrintManager printManager) {
         this.userService = userService;
         this.scanner = scannerFactory.getSystemIn();
@@ -50,16 +53,37 @@ public class LoginScreen implements BaseScreen {
 
     @Override
     public void openScreen() {
-        startLogging();
+       manageEvents();
     }
 
     @Override
     public void quit() {
-        startLogging();
+       manageEvents();
     }
 
     @Override
     public void manageEvents() {
-        startLogging();
+//        startLogging();
+        printManager.print("What do you want to do?\n1)login     2)register      3)exit");
+        System.out.print("Answer: ");
+        switch (scanner.nextLine()) {
+            case "1":
+            case "login":
+                startLogging();
+                break;
+            case "2":
+            case "register":
+                registerScreen.registerUser();
+                break;
+            case "3":
+            case "quit":
+                quit();
+                break;
+            default:
+                printManager.printInNewScreen("Please, enter correct value");
+                manageEvents();
+                break;
+        }
+        manageEvents();
     }
 }
