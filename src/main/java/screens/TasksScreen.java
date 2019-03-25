@@ -19,8 +19,8 @@ public class TasksScreen extends BaseAbstractClass {
     private Scanner scanner;
     private List<Task> userTasks;
 
-    private final TasksDao tasksDao;
-    private final TasksService tasksService;
+    private TasksDao tasksDao;
+    private TasksService tasksService;
     private PrintManager printManager;
     private Card curCard;
 

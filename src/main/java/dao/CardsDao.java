@@ -20,8 +20,8 @@ import java.util.List;
 @Repository
 public class CardsDao implements BaseDao {
 
-    private final Connection connection;
-    private final JdbcTemplate jdbcTemplate;
+    private Connection connection;
+    private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_CARDS_FROM_DESK = "select card.id, card.name, card.date_of_creation from card " +
             "inner join desk on card.desk_id = desk.id where desk.name = ?";

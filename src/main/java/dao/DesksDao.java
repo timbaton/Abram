@@ -19,8 +19,8 @@ import java.util.List;
 @Repository
 public class DesksDao implements BaseDao {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final Connection connection;
+    private JdbcTemplate jdbcTemplate;
+    private Connection connection;
 
     private final String SQL_SELECT_DESK_BY_NAME = "SELECT * FROM desk WHERE name= ?";
     private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name, desk.date_of_creation, desk.creator from desk inner join\n" +

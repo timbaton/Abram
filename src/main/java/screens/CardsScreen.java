@@ -20,8 +20,8 @@ public class CardsScreen extends BaseAbstractClass {
 
     private Desk desk;
     private static List<Card> userCards;
-    private final CardsService cardsService;
-    private final TasksScreen tasksScreen;
+    private CardsService cardsService;
+    private TasksScreen tasksScreen;
     private BaseScreen prefScreen;
     private PrintManager printManager;
 

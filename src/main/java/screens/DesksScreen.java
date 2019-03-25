@@ -1,7 +1,6 @@
 package screens;
 
 import base.BaseAbstractClass;
-import base.BaseScreen;
 import models.Desk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
