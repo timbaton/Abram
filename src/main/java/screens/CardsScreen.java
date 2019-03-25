@@ -37,6 +37,8 @@ public class CardsScreen extends BaseAbstractClass {
 
     public void openScreen() {
         userCards = cardsService.getCards(desk);
+
+        showCards();
         manageEvents();
     }
 
@@ -46,8 +48,6 @@ public class CardsScreen extends BaseAbstractClass {
 
     @Override
     public void manageEvents() {
-        showCards();
-
         printManager.print("What do you want to do?\n1)add card     2)open      3)exit");
         switch (scanner.nextLine()) {
             case "1":
@@ -71,19 +71,21 @@ public class CardsScreen extends BaseAbstractClass {
 
     private void showCards() {
         StringBuilder allCards = new StringBuilder();
+
         if (!userCards.isEmpty()) {
-            allCards.append("This desk has cards:\n");
+            printManager.printInNewScreen("This desk has cards:");
+
             for (int i = 0; i < userCards.size(); i++) {
                 allCards.append(i + 1).append(")").append(userCards.get(i).getName());
                 if (i != userCards.size() - 1) {
                     allCards.append("\n");
                 }
             }
+            printManager.printInNewScreen(allCards.toString());
 
         } else {
-            allCards.append("No cards in this desk!");
+            printManager.printInNewScreen("No cards in this desk!");
         }
-        printManager.printInNewScreen(allCards.toString());
     }
 
     private void addCard() {
@@ -95,30 +97,35 @@ public class CardsScreen extends BaseAbstractClass {
     }
 
     private void openCardsTasks() {
-        StringBuilder allCards = new StringBuilder();
-        printManager.printInNewScreen("Choose the card name: ");
-
         if (!userCards.isEmpty()) {
-            allCards.append("This desk has cards:\n");
+            StringBuilder allCards = new StringBuilder();
+            printManager.printInNewScreen("Choose the card name: ");
 
-            for (int i = 0; i < userCards.size(); i++) {
-                allCards.append(i + 1).append(")").append(userCards.get(i).getName());
-                if (i != userCards.size() - 1) {
-                    allCards.append("\n");
+            if (!userCards.isEmpty()) {
+                allCards.append("This desk has cards:\n");
+
+                for (int i = 0; i < userCards.size(); i++) {
+                    allCards.append(i + 1).append(")").append(userCards.get(i).getName());
+                    if (i != userCards.size() - 1) {
+                        allCards.append("\n");
+                    }
+                }
+                printManager.print(allCards.toString());
+
+                int index = Integer.valueOf(scanner.nextLine()) - 1;
+                if (index < userCards.size()) {
+                    Card openingCard = userCards.get(index);
+                    tasksScreen.setCard(openingCard);
+                    tasksScreen.setPrefScreen(this);
+                    tasksScreen.openScreen();
+                } else {
+                    printManager.printInNewScreen("Please, enter correct value");
+                    openCardsTasks();
                 }
             }
-            printManager.print(allCards.toString());
-
-            int index = Integer.valueOf(scanner.nextLine()) - 1;
-            if (index < userCards.size()) {
-                Card openingCard = userCards.get(index);
-                tasksScreen.setCard(openingCard);
-                tasksScreen.setPrefScreen(this);
-                tasksScreen.openScreen();
-            } else {
-                printManager.printInNewScreen("Please, enter correct value");
-                openCardsTasks();
-            }
+        } else {
+            printManager.printInNewScreen("Firstly you have to add a card!");
+            manageEvents();
         }
     }
 

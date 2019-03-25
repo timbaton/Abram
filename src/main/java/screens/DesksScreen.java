@@ -54,9 +54,11 @@ public class DesksScreen extends BaseAbstractClass {
                     desksList.append("\n");
                 }
             }
-        } else desksList.append("You don't have any desks!");
+            printManager.print(desksList.toString());
 
-        printManager.print(desksList.toString());
+        } else {
+            printManager.printInNewScreen("You don't have any desks!");
+        }
     }
 
     public void manageEvents() {
@@ -93,24 +95,29 @@ public class DesksScreen extends BaseAbstractClass {
 
     //    посмотреть карточки из данного стола
     private void openCard() {
-        printManager.printInNewScreen("Choose the desk name: ");
+        if (desks.size() > 0) {
+            printManager.printInNewScreen("Choose the desk name: ");
 
-        StringBuilder desksList = new StringBuilder();
-        for (int i = 0; i < desks.size(); i++) {
-            desksList.append(i + 1).append(")").append(desks.get(i).getName());
-            if (i != desks.size() - 1) {
-                desksList.append("\n");
+            StringBuilder desksList = new StringBuilder();
+            for (int i = 0; i < desks.size(); i++) {
+                desksList.append(i + 1).append(")").append(desks.get(i).getName());
+                if (i != desks.size() - 1) {
+                    desksList.append("\n");
+                }
             }
+
+            printManager.print(desksList.toString());
+
+            int index = scanner.nextInt() - 1;
+            if (index < desks.size()) {
+                Desk openingDesk = desks.get(index);
+                cardsScreen.setDesk(openingDesk);
+                cardsScreen.openScreen();
+            } else
+                printManager.printInNewScreen("Please, enter correct value");
+        } else {
+            printManager.printInNewScreen("Firstly you have to add a desk!");
+            manageEvents();
         }
-
-        printManager.print(desksList.toString());
-
-        int index = scanner.nextInt() - 1;
-        if (index < desks.size()) {
-            Desk openingDesk = desks.get(index);
-            cardsScreen.setDesk(openingDesk);
-            cardsScreen.openScreen();
-        } else
-            printManager.printInNewScreen("Please, enter correct value");
     }
 }

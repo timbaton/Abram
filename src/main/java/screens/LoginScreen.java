@@ -63,8 +63,7 @@ public class LoginScreen implements BaseScreen {
 
     @Override
     public void manageEvents() {
-//        startLogging();
-        printManager.print("What do you want to do?\n1)login     2)register      3)exit");
+        printManager.printInNewScreen("What do you want to do?\n1)login     2)register      3)exit");
         System.out.print("Answer: ");
         switch (scanner.nextLine()) {
             case "1":
