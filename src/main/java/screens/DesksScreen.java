@@ -63,7 +63,7 @@ public class DesksScreen extends BaseAbstractClass {
 
     public void manageEvents() {
         printManager.print("What do you want to do?\n1)add desk     2)open      3)exit");
-        System.out.print("answer: ");
+        System.out.print("Answer: ");
         switch (scanner.nextLine()) {
             case "1":
             case "add desk":

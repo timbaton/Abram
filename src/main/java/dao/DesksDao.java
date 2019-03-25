@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,6 @@ import java.util.List;
 public class DesksDao implements BaseDao {
 
     private JdbcTemplate jdbcTemplate;
-    private Connection connection;
 
     private final String SQL_SELECT_DESK_BY_NAME = "SELECT * FROM desk WHERE name= ?";
     private final String SQL_SELECT_DESKS_OF_USER = "select desk.id, desk.name, desk.date_of_creation, desk.creator from desk inner join\n" +
@@ -31,9 +32,8 @@ public class DesksDao implements BaseDao {
     private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
 
     @Autowired
-    public DesksDao(JdbcTemplate jdbcTemplate, Connection connection) {
+    public DesksDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.connection = connection;
     }
 
     public List<Desk> findAllUserDesks(User user) {
@@ -41,7 +41,7 @@ public class DesksDao implements BaseDao {
     }
 
     private RowMapper<Desk> deskRowMapper = (resultSet, i) -> Desk.builder()
-            .id(resultSet.getInt("id"))
+            .id(resultSet.getLong("id"))
             .name(resultSet.getString("name"))
             .dataOfCreation(resultSet.getString("date_of_creation"))
             .creator(resultSet.getInt("creator"))
@@ -63,17 +63,8 @@ public class DesksDao implements BaseDao {
     }
 
     public void add(String name, User user) {
-        try {
-            PreparedStatement ps = connection.prepareStatement(SQL_INSERT_NEW_DESK);
-            ps.setString(1, name);
-            Date date = new Date();
-            ps.setString(2, String.valueOf(date));
-            ps.setInt(3, Math.toIntExact(user.getId()));
-            ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println(printDesks(findAllUserDesks(user)));
+        jdbcTemplate.update(SQL_INSERT_NEW_DESK, name, Timestamp.valueOf(LocalDateTime.now()),user.getId());
+//        System.out.println(printDesks(findAllUserDesks(user)));
     }
 
     private StringBuilder printDesks(List<Desk> desks) {

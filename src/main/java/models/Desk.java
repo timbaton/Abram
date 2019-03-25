@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Desk {
-    private int id;
+    private Long id;
     private String dataOfCreation;
     private String name;
     private int creator;

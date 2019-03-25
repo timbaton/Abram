@@ -41,6 +41,7 @@ public class TasksScreen extends BaseAbstractClass {
 
     public void manageEvents() {
         printManager.print("What do you want to do?\n 1)add task    2)open      3)exit");
+        System.out.print("Answer: ");
         switch (scanner.nextLine()) {
             case "1":
             case "add task":

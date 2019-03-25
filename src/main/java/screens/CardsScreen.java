@@ -49,6 +49,7 @@ public class CardsScreen extends BaseAbstractClass {
     @Override
     public void manageEvents() {
         printManager.print("What do you want to do?\n1)add card     2)open      3)exit");
+        System.out.print("Answer: ");
         switch (scanner.nextLine()) {
             case "1":
             case "add card":
