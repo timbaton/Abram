@@ -30,6 +30,8 @@ public class DesksDao implements BaseDao {
             "returning id, creator)\n" +
             "insert into user_to_desk(desk_id, user_id) values ((select id from ins1), (select creator from ins1))";
     private final String SQL_INSERT_DESK_USER = "insert into user_to_desk(user_id, desk_id) values (?,?)";
+    private final String SQL_DELETE_DESK = "delete from desk where desk.name = ?";
+
 
     @Autowired
     public DesksDao(JdbcTemplate jdbcTemplate) {
@@ -64,7 +66,10 @@ public class DesksDao implements BaseDao {
 
     public void add(String name, User user) {
         jdbcTemplate.update(SQL_INSERT_NEW_DESK, name, Timestamp.valueOf(LocalDateTime.now()),user.getId());
-//        System.out.println(printDesks(findAllUserDesks(user)));
+    }
+
+    public void delete(String deskName){
+        jdbcTemplate.update(SQL_DELETE_DESK, deskName);
     }
 
     private StringBuilder printDesks(List<Desk> desks) {

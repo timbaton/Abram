@@ -34,4 +34,7 @@ public class DeskService {
     public void addDesk(String name) {
         desksDao.add(name, user);
     }
+    public void deleteDesk(String deskName) {
+        desksDao.delete(deskName);
+    }
 }

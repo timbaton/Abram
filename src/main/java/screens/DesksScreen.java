@@ -62,7 +62,7 @@ public class DesksScreen extends BaseAbstractClass {
     }
 
     public void manageEvents() {
-        printManager.print("What do you want to do?\n1)add desk     2)open      3)exit");
+        printManager.print("What do you want to do?\n1)add desk     2)open      3)exit     4)delete");
         System.out.print("Answer: ");
         switch (scanner.nextLine()) {
             case "1":
@@ -77,6 +77,10 @@ public class DesksScreen extends BaseAbstractClass {
             case "quit":
                 quit();
                 break;
+            case "4":
+            case "delete":
+                deleteDesk();
+                break;
             default:
                 printManager.printInNewScreen("Please, enter correct value");
                 manageEvents();
@@ -90,6 +94,16 @@ public class DesksScreen extends BaseAbstractClass {
         String deskName = scanner.nextLine();
         deskService.addDesk(deskName);
         printManager.printInNewScreen("Added new desk" + " " + "-" + " " + deskName);
+        showDesks();
+    }
+
+    private void deleteDesk() {
+        //TODO: fix the printer to print VERY NICE
+        printManager.printInNewScreen("Ohhh, you wanna delete your desk?" +
+                "Enter the name of the desk");
+        String deskName = scanner.nextLine();
+        deskService.deleteDesk(deskName);
+        printManager.printInNewScreen("Deleted the desk" + " " + "-" + " " + deskName);
         showDesks();
     }
 

@@ -1,5 +1,6 @@
 package mytests;
 
+import dao.DesksDao;
 import utils.PrintManager;
 
 public class Test {

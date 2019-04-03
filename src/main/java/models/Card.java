@@ -5,10 +5,15 @@ import java.util.List;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "card")
 public class Card {
     private Long id;
     private String name;

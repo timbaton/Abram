@@ -2,6 +2,8 @@ package models;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "desk")
 public class Desk {
     private Long id;
     private String dataOfCreation;
